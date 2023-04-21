@@ -37,13 +37,29 @@ body {
     margin: 0%;
 }
 
-.login > div.mdiv > div.roles > button {
+.login > div.mdiv > div.roles > p {
+    margin-left: 4%;
+}
+
+.login > div.mdiv > div.roles > button.btn_chosen {
     padding: 5% 0 5% 0;
     margin-left: 4%;
     float: left;
     background-color: #88abda;
     color: #f4f4f4;
     border: none;
+    width: 44%;
+    cursor: pointer;
+    border-radius: 5px;
+    opacity: 0.75;
+}
+
+.login > div.mdiv > div.roles > button.btn_unchosen {
+    padding: 5% 0 5% 0;
+    margin-left: 4%;
+    float: left;
+    border: #88abda solid 1px;
+    color: #88abda;
     width: 44%;
     cursor: pointer;
     border-radius: 5px;
@@ -76,7 +92,6 @@ body {
     cursor: pointer;
     border-radius: 5px;
 }
-
 /* platform */
 .platform > div.menu {
     background-color:  #e9e9e9;

@@ -10,13 +10,17 @@
     <body class="login">
         <h1>在线课程注册系统</h1>
         <div class="mdiv">
-            <h2>用户登录</h2>
+            <h2>用户注册</h2>
             <div class="roles">
-                <p>登录身份：</p>
+                <p>注册为：</p>
                 <button class="btn_chosen" id="role_stu" onclick="select_stu()">学生</button>
                 <button class="btn_unchosen" id="role_tch" onclick="select_tch()">教师</button>
             </div>
             <div class="inputs">
+                <div>
+                    用户名<br/>
+                    <input class="input" type="text" name="name" id="name">
+                </div>
                 <div>
                     手机号<br/>
                     <input class="input" type="text" name="telephone" id="telephone" autocomplete="off">
@@ -25,15 +29,24 @@
                     密码<br/>
                     <input class="input" type="password" name="password" id="password">
                 </div>
+                <div>
+                    确认密码<br/>
+                    <input class="input" type="password" name="password_confirm" id="password_confirm">
+                </div>
+                <div>
+                    验证码<br/>
+                    <input class="input" type="text" name="otp_code" id="otp_code">
+                </div>
             </div>
-            <button class="button" id="login" type="submit">登录</button>
+            <button id="get_otp">获取验证码</button>
+            <button id="login" type="submit">注册</button>
             <br/>
-            <a href="register.html">注册</a>
+            <a href="login.html">登录</a>
         </div>
     </body>
     <script>
         jQuery(document).ready(function() {
-            $("#login").on("click", function(){
+            $("#login").on("click", function() {
                 var telephone = $("#telephone").val();
                 var password = $("#password").val();
                 if (telephone == null || telephone == "") {
