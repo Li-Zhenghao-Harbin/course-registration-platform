@@ -35,7 +35,7 @@
                 </div>
                 <div>
                     验证码<br/>
-                    <input class="input" type="text" name="otp_code" id="otp_code">
+                    <input class="input" type="text" name="otp" id="otp">
                 </div>
             </div>
             <button id="get_otp">获取验证码</button>
@@ -46,9 +46,37 @@
     </body>
     <script>
         jQuery(document).ready(function() {
-            $("#register").on("click", function() {
+            $("#get_otp").on("click", function() {
                 var telephone = $("#telephone").val();
-                // var gender
+                if (telephone == null || telephone == "") {
+                    alert("电话号不能为空");
+                    return;
+                }
+                $.ajax({
+                    type:"POST",
+                    contentType:"application/x-www-form-urlencoded",
+                    url:"http://localhost:8089/stu/getOtp",
+                    data:{
+                        "telephone":telephone,
+                    },
+                    xhrFields:{withCredentials:true},
+                    success:function(data) {
+                        if (data.status == "success") {
+                            alert("验证码发送成功");
+                        } else {
+                            alert("验证码发送失败，因为"+data.data.errorMessage);
+                        }
+                    },
+                    error:function(data) {
+                        alert("验证码发送失败，因为" + data.responseText);
+                    }
+                })
+                return false;
+            });
+            $("#register").on("click", function() {
+                var name = $("#name").val();
+                var telephone = $("#telephone").val();
+                var gender = 2;
                 var password = $("#password").val();
                 var password_confirm = $("#password_confirm").val();
                 var otp = $("#otp").val();
@@ -60,35 +88,42 @@
                     alert("手机号长度不合法");
                     return;
                 }
-                if (password == null || password == "" || password_comfirm == null || password_comfirm == "") {
+                if (password == null || password == "") {
                     alert("密码不能为空");
                     return;
                 }
-                if (password != password_comfirm) {
+                if (password != password_confirm) {
                     alert("密码不相等");
                     return;
                 }
-                // otp
+                if (otp == null || otp == "" || otp.length != 6) {
+                    alert("验证码错误");
+                    return;
+                }
                 $.ajax({
                     type:"POST",
                     contentType:"application/x-www-form-urlencoded",
-                    url:"http://localhost:8089/user/register",
+                    url:"http://localhost:8089/stu/register",
                     data:{
+                        "name":name,
+                        "gender":gender,
                         "telephone":telephone,
                         "password":password,
+                        "otpCode":otp,
                     },
                     xhrFields:{withCredentials:true},
                     success:function(data) {
                         if (data.status == "success") {
-                            window.location.href="platform.html";
+                            alert("注册成功");
+                            window.location.href="login.html";
                         } else {
-                            alert("登录失败，因为"+data.data.errorMessage);
+                            alert("注册失败，因为"+data.data.errorMessage);
                         }
                     },
                     error:function(data) {
-                        alert("登录失败，因为" + data.responseText);
+                        alert("注册失败，因为" + data.responseText);
                     }
-                });
+                })
                 return false;
             });
         });

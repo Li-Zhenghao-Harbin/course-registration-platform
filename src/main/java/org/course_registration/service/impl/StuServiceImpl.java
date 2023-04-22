@@ -33,6 +33,33 @@ public class StuServiceImpl implements StuService {
         return convertFromDataObject(stuDO, stuPasswordDO);
     }
 
+    @Override
+    @Transactional
+    public void register(StuModel stuModel) throws BusinessException {
+        if (stuModel == null) {
+            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR);
+        }
+        if (StringUtils.isEmpty(stuModel.getName())
+        || stuModel.getGender() == null
+        || StringUtils.isEmpty(stuModel.getTelephone())) {
+            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR);
+        }
+        StuDO stuDO = convertFromModel(stuModel);
+        try {
+            stuDOMapper.insertSelective(stuDO);
+        } catch (DuplicateKeyException ex) {
+            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR, "手机号已被注册");
+        }
+        stuModel.setId(stuDO.getId());
+        StuPasswordDO stuPasswordDO = convertPasswordFromModel(stuModel);
+        stuPasswordDOMapper.insertSelective(stuPasswordDO);
+    }
+
+    @Override
+    public StuModel validateLogin(String telephone, String encryptedPassword) throws BusinessException {
+        return null;
+    }
+
     private StuModel convertFromDataObject(StuDO stuDO, StuPasswordDO stuPasswordDO) {
         if (stuDO == null) {
             return null;
@@ -62,32 +89,5 @@ public class StuServiceImpl implements StuService {
         stuPasswordDO.setEncryptedPassword(stuModel.getEncryptedPassword());
         stuPasswordDO.setStuId(stuModel.getId());
         return stuPasswordDO;
-    }
-
-    @Override
-    @Transactional
-    public void register(StuModel stuModel) throws BusinessException {
-        if (stuModel == null) {
-            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR);
-        }
-        if (StringUtils.isEmpty(stuModel.getName())
-        || stuModel.getGender() == null
-        || StringUtils.isEmpty(stuModel.getTelephone())) {
-            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR);
-        }
-        StuDO stuDO = convertFromModel(stuModel);
-        try {
-            stuDOMapper.insertSelective(stuDO);
-        } catch (DuplicateKeyException ex) {
-            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR, "手机号已被注册");
-        }
-        stuModel.setId(stuDO.getId());
-        StuPasswordDO stuPasswordDO = convertPasswordFromModel(stuModel);
-        stuPasswordDOMapper.insertSelective(stuPasswordDO);
-    }
-
-    @Override
-    public StuModel validateLogin(String telephone, String encryptedPassword) throws BusinessException {
-        return null;
     }
 }
