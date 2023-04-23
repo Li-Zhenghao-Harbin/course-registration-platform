@@ -35,7 +35,7 @@
                 </div>
                 <div>
                     验证码<br/>
-                    <input class="input" type="text" name="otp" id="otp">
+                    <input class="input" type="text" name="otp_code" id="otp_code">
                 </div>
             </div>
             <button id="get_otp">获取验证码</button>
@@ -79,7 +79,7 @@
                 var gender = 2;
                 var password = $("#password").val();
                 var password_confirm = $("#password_confirm").val();
-                var otp = $("#otp").val();
+                var otp_code = $("#otp_code").val();
                 if (telephone == null || telephone == "") {
                     alert("手机号不能为空");
                     return;
@@ -96,7 +96,7 @@
                     alert("密码不相等");
                     return;
                 }
-                if (otp == null || otp == "" || otp.length != 6) {
+                if (otp_code == null || otp_code == "" || otp_code.length != 6) {
                     alert("验证码错误");
                     return;
                 }
@@ -109,7 +109,7 @@
                         "gender":gender,
                         "telephone":telephone,
                         "password":password,
-                        "otpCode":otp,
+                        "otpCode":otp_code,
                     },
                     xhrFields:{withCredentials:true},
                     success:function(data) {

@@ -1,10 +1,13 @@
 package org.course_registration.controller;
 
+import com.alibaba.druid.util.StringUtils;
+import org.course_registration.controller.viewobject.StuVO;
 import org.course_registration.error.BusinessException;
 import org.course_registration.error.EmBusinessError;
 import org.course_registration.response.CommonReturnType;
 import org.course_registration.service.StuService;
 import org.course_registration.service.model.StuModel;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -50,6 +53,11 @@ public class StuController extends BaseController {
                                      @RequestParam(name = "telephone")String telephone,
                                      @RequestParam(name = "password")String password,
                                      @RequestParam(name = "otpCode")String otpCode) throws BusinessException, UnsupportedEncodingException, NoSuchAlgorithmException {
+        if (StringUtils.isEmpty(name) ||
+                gender == null ||
+                StringUtils.isEmpty(telephone)) {
+            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR);
+        }
         String inSessionOtpCode = (String)this.httpServletRequest.getSession().getAttribute(telephone);
         if (!com.alibaba.druid.util.StringUtils.equals(otpCode, inSessionOtpCode)) {
             throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR, "验证码错误");
@@ -61,5 +69,42 @@ public class StuController extends BaseController {
         stuModel.setEncryptedPassword(this.EncodeByMd5(password));
         stuService.register(stuModel);
         return CommonReturnType.create(null);
+    }
+
+    @RequestMapping(value = "/login", method = {RequestMethod.POST}, consumes = {CONTENT_TYPE_FORMED})
+    @ResponseBody
+    public CommonReturnType login(@RequestParam(name = "telephone")String telephone,
+                                  @RequestParam(name = "password")String password) throws BusinessException, UnsupportedEncodingException, NoSuchAlgorithmException {
+        if (StringUtils.isEmpty(telephone) ||
+                StringUtils.isEmpty(password)) {
+            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR);
+        }
+        StuModel stuModel = stuService.validateLogin(telephone, this.EncodeByMd5(password));
+        this.httpServletRequest.getSession().setAttribute("IS_LOGIN", true);
+        this.httpServletRequest.getSession().setAttribute("ROLE", STU);
+        this.httpServletRequest.getSession().setAttribute("LOGIN_INFO", stuModel);
+        StuVO stuVO = convertFromModel(stuModel);
+        return CommonReturnType.create(stuVO);
+    }
+
+    @RequestMapping(value = "/request", method = {RequestMethod.POST}, consumes = {CONTENT_TYPE_FORMED})
+    @ResponseBody
+    public CommonReturnType request() throws BusinessException {
+        Boolean isLogin = (Boolean) httpServletRequest.getSession().getAttribute("IS_LOGIN");
+        if (isLogin == null || !isLogin.booleanValue()) {
+            throw new BusinessException(EmBusinessError.USER_NOT_LOGIN);
+        }
+        StuModel stuModel = (StuModel) httpServletRequest.getSession().getAttribute("LOGIN_INFO");
+        StuVO stuVO = convertFromModel(stuModel);
+        return CommonReturnType.create(stuVO);
+    }
+
+    private StuVO convertFromModel(StuModel stuModel) {
+        if (stuModel == null) {
+            return null;
+        }
+        StuVO stuVO = new StuVO();
+        BeanUtils.copyProperties(stuModel, stuVO);
+        return stuVO;
     }
 }

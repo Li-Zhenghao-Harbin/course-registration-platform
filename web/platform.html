@@ -50,5 +50,26 @@
         window.onload = function() {
             setMenu();
         }
+        jQuery(document).ready(function() {
+            $(document).ready(function() {
+                $.ajax({
+                    type:"POST",
+                    contentType:"application/x-www-form-urlencoded",
+                    url:"http://localhost:8089/stu/request",
+                    xhrFields:{withCredentials:true},
+                    success:function(data){
+                        if (data.data.errCode == 20003) {
+                            alert("用户未登录");
+                            window.location.href="login.html";
+                        }
+                        $("#me").text("您好，"+data.data.name);
+                    },
+                    error:function(data){
+                        alert("获取用户登录信息失败，因为 "+data.responseText);
+                    }
+                });
+                return false;
+            });
+        });
     </script>
 </html>

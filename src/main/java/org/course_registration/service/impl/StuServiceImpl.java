@@ -29,7 +29,7 @@ public class StuServiceImpl implements StuService {
         if (stuDO == null) {
             return null;
         }
-        StuPasswordDO stuPasswordDO = stuPasswordDOMapper.selectByUserId(stuDO.getId());
+        StuPasswordDO stuPasswordDO = stuPasswordDOMapper.selectByStuId(stuDO.getId());
         return convertFromDataObject(stuDO, stuPasswordDO);
     }
 
@@ -37,11 +37,6 @@ public class StuServiceImpl implements StuService {
     @Transactional
     public void register(StuModel stuModel) throws BusinessException {
         if (stuModel == null) {
-            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR);
-        }
-        if (StringUtils.isEmpty(stuModel.getName())
-        || stuModel.getGender() == null
-        || StringUtils.isEmpty(stuModel.getTelephone())) {
             throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR);
         }
         StuDO stuDO = convertFromModel(stuModel);
@@ -57,7 +52,16 @@ public class StuServiceImpl implements StuService {
 
     @Override
     public StuModel validateLogin(String telephone, String encryptedPassword) throws BusinessException {
-        return null;
+        StuDO stuDO = stuDOMapper.selectByTelephone(telephone);
+        if (stuDO == null) {
+            throw new BusinessException(EmBusinessError.USER_LOGIN_FAIL);
+        }
+        StuPasswordDO stuPasswordDO = stuPasswordDOMapper.selectByStuId(stuDO.getId());
+        StuModel stuModel = convertFromDataObject(stuDO, stuPasswordDO);
+        if (!StringUtils.equals(encryptedPassword, stuModel.getEncryptedPassword())) {
+            throw new BusinessException(EmBusinessError.USER_LOGIN_FAIL);
+        }
+        return stuModel;
     }
 
     private StuModel convertFromDataObject(StuDO stuDO, StuPasswordDO stuPasswordDO) {
