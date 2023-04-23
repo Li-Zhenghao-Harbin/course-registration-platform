@@ -28,10 +28,10 @@
 
         <!--生成对应表及类名-->
 
-        <table tableName="stu_info" domainObjectName="StuDO" enableCountByExample="false"
+        <table tableName="tch_info" domainObjectName="TchDO" enableCountByExample="false"
                enableUpdateByExample="false"  enableDeleteByExample="false"
                enableSelectByExample="false"  selectByExampleQueryId="false"></table>
-        <table tableName="stu_password" domainObjectName="StuPasswordDO" enableCountByExample="false"
+        <table tableName="tch_password" domainObjectName="TchPasswordDO" enableCountByExample="false"
                enableUpdateByExample="false"  enableDeleteByExample="false"
                enableSelectByExample="false"  selectByExampleQueryId="false"></table>
     </context>

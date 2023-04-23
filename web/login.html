@@ -51,7 +51,7 @@
                 $.ajax({
                     type:"POST",
                     contentType:"application/x-www-form-urlencoded",
-                    url:"http://localhost:8089/stu/login",
+                    url:role == 0 ? "http://localhost:8089/stu/login" : "http://localhost:8089/tch/login",
                     data:{
                         "telephone":telephone,
                         "password":password,
@@ -59,7 +59,7 @@
                     xhrFields:{withCredentials:true},
                     success:function(data) {
                         if (data.status == "success") {
-                            window.location.href="index.html";
+                            window.location.href=role == 0 ? "index.html" : "platform.html";
                         } else {
                             alert("登录失败，因为"+data.data.errorMessage);
                         }

@@ -55,7 +55,7 @@
                 $.ajax({
                     type:"POST",
                     contentType:"application/x-www-form-urlencoded",
-                    url:"http://localhost:8089/stu/getOtp",
+                    url:role == 0 ? "http://localhost:8089/stu/getOtp" : "http://localhost:8089/tch/getOtp",
                     data:{
                         "telephone":telephone,
                     },
@@ -103,7 +103,7 @@
                 $.ajax({
                     type:"POST",
                     contentType:"application/x-www-form-urlencoded",
-                    url:"http://localhost:8089/stu/register",
+                    url: role == 0 ? "http://localhost:8089/stu/register" : "http://localhost:8089/tch/register",
                     data:{
                         "name":name,
                         "gender":gender,
