@@ -11,7 +11,7 @@
  Target Server Version : 80027
  File Encoding         : 65001
 
- Date: 23/04/2023 15:19:51
+ Date: 23/04/2023 16:10:48
 */
 
 SET NAMES utf8mb4;
@@ -30,9 +30,12 @@ CREATE TABLE `course_info`  (
   `price` double(10, 0) NOT NULL,
   `sales` int NOT NULL,
   `tch_id` int NOT NULL,
-  `tch_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of course_info
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for course_stock
@@ -44,6 +47,10 @@ CREATE TABLE `course_stock`  (
   `course_id` int NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of course_stock
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for order_info
@@ -59,6 +66,10 @@ CREATE TABLE `order_info`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Records of order_info
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for sequence_info
 -- ----------------------------
 DROP TABLE IF EXISTS `sequence_info`;
@@ -67,6 +78,11 @@ CREATE TABLE `sequence_info`  (
   `current_value` int NOT NULL,
   `step` int NOT NULL
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of sequence_info
+-- ----------------------------
+INSERT INTO `sequence_info` VALUES ('order_info', 0, 1);
 
 -- ----------------------------
 -- Table structure for stu_info
@@ -82,6 +98,10 @@ CREATE TABLE `stu_info`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Records of stu_info
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for stu_password
 -- ----------------------------
 DROP TABLE IF EXISTS `stu_password`;
@@ -91,6 +111,10 @@ CREATE TABLE `stu_password`  (
   `stu_id` int NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of stu_password
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for stu_transaction
@@ -104,6 +128,10 @@ CREATE TABLE `stu_transaction`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Records of stu_transaction
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for stu_wallet
 -- ----------------------------
 DROP TABLE IF EXISTS `stu_wallet`;
@@ -113,6 +141,10 @@ CREATE TABLE `stu_wallet`  (
   `stu_id` int NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of stu_wallet
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for tch_info
@@ -129,6 +161,10 @@ CREATE TABLE `tch_info`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Records of tch_info
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for tch_password
 -- ----------------------------
 DROP TABLE IF EXISTS `tch_password`;
@@ -138,6 +174,10 @@ CREATE TABLE `tch_password`  (
   `tch_id` int NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of tch_password
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for tch_transaction
@@ -151,6 +191,10 @@ CREATE TABLE `tch_transaction`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Records of tch_transaction
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for tch_wallet
 -- ----------------------------
 DROP TABLE IF EXISTS `tch_wallet`;
@@ -160,5 +204,9 @@ CREATE TABLE `tch_wallet`  (
   `tch_id` int NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of tch_wallet
+-- ----------------------------
 
 SET FOREIGN_KEY_CHECKS = 1;
