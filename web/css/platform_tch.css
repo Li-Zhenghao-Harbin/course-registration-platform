@@ -1,0 +1,40 @@
+.platform > div.menu {
+    background-color:  #e9e9e9;
+    padding: 1%;
+    overflow: hidden;
+}
+
+.platform > div.menu > p.title {
+    float: left;
+    text-align: left;
+    color: #88abda;
+    font-weight: bold;
+}
+
+.platform > div.menu > p.option_left {
+    float: left;
+    text-align: left;
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+.platform > div.menu > p.option_right {
+    float: right;
+    text-align: right;
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.platform > div.business {
+    margin: 3%;
+}
+
+.platform > div.business > div.business_item {
+    float: left;
+    background-color: #e9e9e9;
+    width: 23%;
+    text-align: center;
+    cursor: pointer;
+    margin: 0 1% 0 1%;
+    padding: 3% 0 3% 0;
+}

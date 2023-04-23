@@ -4,60 +4,38 @@
         <meta charset="UTF-8">
         <title>Course Registration Platform</title>
         <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/platform_tch.css">
         <script src="js/jquery-1.11.0.min.js" type="text/javascript"></script>
         <script src="js/menu.js" type="text/javascript"></script>
     </head>
     <body class="platform">
         <div class="menu" id="menu"></div>
-        <div class="free_course">
-            <h1>我的业务</h1>
-            <!-- exmaples -->
-            <div class="course" id="free_course1">
-                <p class="title">course_name</p>
-                <div class="v1">
-                    <p class="start_time">start_time</p>
-                    <p class="duration">duration</p>
-                    <p class="price">price</p>
-                </div>
-                <div class="v2">
-                    <p class="sales">已报名</p>
-                    <p class="sales">sales</p>
-                    <p class="tch">tch_name</p>
-                </div>
+        <div class="business">
+            <div class="business_item" id="add_course">
+                添加课程&nbsp;&nbsp;&gt;&gt;
             </div>
-            <a href="free_course">更多免费课程&gt;&gt;</a>
-        </div>
-        <div class="paid_course">
-            <h1>付费课程</h1>
-            <!-- exmaples -->
-            <div class="course" id="paid_course1">
-                <p class="title">course_name</p>
-                <div class="v1">
-                    <p class="start_time">start_time</p>
-                    <p class="duration">duration</p>
-                    <p class="price">price</p>
-                </div>
-                <div class="v2">
-                    <p class="sales">已报名</p>
-                    <p class="sales">sales</p>
-                    <p class="tch">tch_name</p>
-                </div>
+            <div class="business_item" id="my_course">
+                我的课程&nbsp;&nbsp;&gt;&gt;
             </div>
-            <a href="paid_course">更多付费课程&gt;&gt;</a>
+            <div class="business_item" id="info">
+                个人信息&nbsp;&nbsp;&gt;&gt;
+            </div>
+            <div class="business_item" id="balance">
+                我的余额&nbsp;&nbsp;&gt;&gt;
+            </div>
         </div>
     </body>
     <script>
         window.onload = function() {
-            setMenu();
+            setTchMenu();
         }
-
 
         jQuery(document).ready(function() {
             $(document).ready(function() {
                 $.ajax({
                     type:"POST",
                     contentType:"application/x-www-form-urlencoded",
-                    url:"http://localhost:8089/stu/request",
+                    url:"http://localhost:8089/tch/request",
                     xhrFields:{withCredentials:true},
                     success:function(data){
                         if (data.data.errCode == 20003) {
@@ -71,6 +49,9 @@
                     }
                 });
                 return false;
+            });
+            $("#add_course").on("click", function() {
+                window.location.href = "add_course.html";
             });
         });
     </script>
