@@ -82,7 +82,6 @@ public class TchController extends BaseController {
         }
         TchModel tchModel = tchService.validateLogin(telephone, this.EncodeByMd5(password));
         this.httpServletRequest.getSession().setAttribute("IS_LOGIN", true);
-        this.httpServletRequest.getSession().setAttribute("ROLE", TCH);
         this.httpServletRequest.getSession().setAttribute("LOGIN_INFO", tchModel);
         TchVO tchVO = convertFromModel(tchModel);
         return CommonReturnType.create(tchVO);

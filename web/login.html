@@ -60,7 +60,7 @@
                     xhrFields:{withCredentials:true},
                     success:function(data) {
                         if (data.status == "success") {
-                            window.location.href=role == 0 ? "index.html" : "platform.html";
+                            window.location.href=(role == 0 ? "stu" : "tch") +"/platform.html";
                         } else {
                             alert("登录失败，因为"+data.data.errorMessage);
                         }

@@ -81,7 +81,6 @@ public class StuController extends BaseController {
         }
         StuModel stuModel = stuService.validateLogin(telephone, this.EncodeByMd5(password));
         this.httpServletRequest.getSession().setAttribute("IS_LOGIN", true);
-        this.httpServletRequest.getSession().setAttribute("ROLE", STU);
         this.httpServletRequest.getSession().setAttribute("LOGIN_INFO", stuModel);
         StuVO stuVO = convertFromModel(stuModel);
         return CommonReturnType.create(stuVO);

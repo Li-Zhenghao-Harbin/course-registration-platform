@@ -3,10 +3,10 @@
     <head>
         <meta charset="UTF-8">
         <title>Course Registration Platform</title>
-        <link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="css/platform_tch.css">
-        <script src="js/jquery-1.11.0.min.js" type="text/javascript"></script>
-        <script src="js/menu.js" type="text/javascript"></script>
+        <link rel="stylesheet" href="../css/style.css">
+        <link rel="stylesheet" href="css/platform.css">
+        <script src="../js/jquery-1.11.0.min.js" type="text/javascript"></script>
+        <script src="../js/menu.js" type="text/javascript"></script>
     </head>
     <body class="platform">
         <div class="menu" id="menu"></div>
@@ -52,6 +52,9 @@
             });
             $("#create_course").on("click", function() {
                 window.location.href = "create_course.html";
+            });
+            $("#my_course").on("click", function() {
+                window.location.href = "my_course.html";
             });
         });
     </script>
