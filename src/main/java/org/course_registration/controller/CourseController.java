@@ -19,7 +19,10 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller("course")
 @RequestMapping("/course")
@@ -71,5 +74,16 @@ public class CourseController extends BaseController {
         CourseVO courseVO = new CourseVO();
         BeanUtils.copyProperties(courseModel, courseVO);
         return courseVO;
+    }
+
+    @RequestMapping(value = "/list", method = {RequestMethod.GET})
+    @ResponseBody
+    private CommonReturnType listCourse() {
+        List<CourseModel> courseModelList = courseService.listCourse();
+        List<CourseVO> courseVOList = courseModelList.stream().map(courseModel -> {
+            CourseVO courseVO = convertFromModel(courseModel);
+            return courseVO;
+        }).collect(Collectors.toList());
+        return CommonReturnType.create(courseVOList);
     }
 }

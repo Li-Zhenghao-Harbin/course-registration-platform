@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CourseServiceImpl implements CourseService {
@@ -61,7 +62,21 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public List<CourseModel> listCourse() {
-        return null;
+        List<CourseDO> courseDOList = courseDOMapper.listCourse();
+        List<CourseModel> courseModelList = courseDOList.stream().map(courseDO -> {
+            CourseStockDO courseStockDO = courseStockDOMapper.selectByCourseId(courseDO.getId());
+            CourseModel courseModel = convertFromDataObject(courseDO, courseStockDO);
+            return courseModel;
+        }).collect(Collectors.toList());
+        return courseModelList;
+    }
+
+    private CourseModel convertFromDataObject(CourseDO courseDO, CourseStockDO courseStockDO) {
+        CourseModel courseModel = new CourseModel();
+        BeanUtils.copyProperties(courseDO, courseModel);
+        courseModel.setPrice(new BigDecimal(courseDO.getPrice()));
+        courseModel.setStock(courseStockDO.getStock());
+        return courseModel;
     }
 
     @Override

@@ -25,6 +25,12 @@
     -->
     id, title, description, check_code, start_time, duration, price, sales, tch_id
   </sql>
+  <select id="listCourse" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from course_info
+    order by start_time desc;
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--
       WARNING - @mbg.generated

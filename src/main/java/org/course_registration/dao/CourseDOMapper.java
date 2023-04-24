@@ -1,6 +1,9 @@
 package org.course_registration.dao;
 
 import org.course_registration.dataobject.CourseDO;
+import org.course_registration.service.model.CourseModel;
+
+import java.util.List;
 
 public interface CourseDOMapper {
     /**
@@ -17,6 +20,8 @@ public interface CourseDOMapper {
      *
      * @mbg.generated Mon Apr 24 20:38:55 BST 2023
      */
+    List<CourseDO> listCourse();
+
     int insert(CourseDO record);
 
     /**

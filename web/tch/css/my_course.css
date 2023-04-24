@@ -1,0 +1,40 @@
+.platform > div.mdiv {
+    clear: both;
+    margin: 1% 5% 1% 5%;
+    padding: 2% 10% 4% 10%;
+    background-color: #f4f4f4;
+    border-radius: 10px;
+}
+
+.platform > div.mdiv > h2 {
+    text-align: center;
+    color: #88abda;
+}
+
+.platform > div.mdiv > div.inputs {
+    clear: both;
+    margin-top: 10%;
+}
+
+.platform > div.mdiv > div.inputs > div {
+    margin-top: 3%;
+    text-align: center;
+}
+
+.platform > div.mdiv > div.inputs > div > input {
+    width: 90%;
+    padding: 1%;
+    margin-bottom: 1%;
+}
+
+.platform > div.mdiv > button {
+    margin-top: 10%;
+    padding: 5% 0 5% 0;
+    background-color: #88abda;
+    color: #f4f4f4;
+    border: none;
+    width: 80%;
+    margin-left: 10%;
+    cursor: pointer;
+    border-radius: 5px;
+}
