@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="zh">
+    <head>
+        <meta charset="UTF-8">
+        <title>Course Registration Platform</title>
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/platform_tch.css">
+        <link rel="stylesheet" href="css/add_course.css">
+        <script src="js/jquery-1.11.0.min.js" type="text/javascript"></script>
+        <script src="js/menu.js" type="text/javascript"></script>
+        <script src="js/navigation.js" type="text/javascript"></script>
+    </head>
+    <body class="platform">
+        <div class="menu" id="menu"></div>
+        <div class="navigation" id="navigation"></div>
+        <div class="mdiv">
+            <h2>创建课程</h2>
+            <div class="inputs">
+                <div>
+                    课程名<br/>
+                    <input class="input" type="text" name="title" id="title" autocomplete="off">
+                </div>
+                <div>
+                    课程描述<br/>
+                    <input class="input" type="text" name="description" id="description">
+                </div>
+                <div>
+                    校验码<br/>
+                    <input class="input" type="text" name="check_code" id="check_code">
+                </div>
+                <div>
+                    开课时间<br/>
+                    <input class="input" type="datetime-local" name="start_time" id="start_time">
+                </div>
+                <div>
+                    课程时长<br/>
+                    <input class="input" type="text" name="duration" id="duration">
+                </div>
+                <div>
+                    课程价格<br/>
+                    <input class="input" type="text" name="price" id="price">
+                </div>
+                <div>
+                    课程人数上限<br/>
+                    <input class="input" type="text" name="stock" id="stock">
+                </div>
+            </div>
+            <button class="button" id="create_course" type="submit">确认</button>
+            <br/>
+        </div>
+    </body>
+    <script>
+        window.onload = function() {
+            setTchMenu();
+            setNavigation("创建课程");
+        }
+
+        jQuery(document).ready(function() {
+            $(document).ready(function() {
+                $.ajax({
+                    type:"POST",
+                    contentType:"application/x-www-form-urlencoded",
+                    url:"http://localhost:8089/tch/request",
+                    xhrFields:{withCredentials:true},
+                    success:function(data){
+                        if (data.data.errCode == 20003) {
+                            alert("用户未登录");
+                            window.location.href="login.html";
+                        }
+                        $("#me").text("您好，"+data.data.name);
+                    },
+                    error:function(data){
+                        alert("获取用户登录信息失败，因为 "+data.responseText);
+                    }
+                });
+                return false;
+            });
+            $("#create_course").on("click", function() {
+                var title = $("#title").val();
+                var description = $("#description").val();
+                var check_code = $("#check_code").val();
+                var start_time = new Date($("#start_time").val());
+                var duration = $("#duration").val();
+                var price = $("#price").val();
+                var stock = $("#stock").val();
+                if (title == null || title == "") {
+                    alert("课程名不能为空");
+                    return;
+                }
+                if (description == null || description == "") {
+                    alert("课程描述不能为空");
+                    return;
+                }
+                if (check_code == null || check_code == "") {
+                    alert("校验码不能为空");
+                    return;
+                }
+                if (start_time == null || start_time == "") {
+                    alert("开课时间不能为空");
+                    return;
+                }
+                if (duration == null || duration == "") {
+                    alert("课程时长不能为空");
+                    return;
+                }
+                if (price == null || price == "") {
+                    alert("课程价格不能为空");
+                    return;
+                }
+                if (stock == null || stock == "") {
+                    alert("库存不能为空");
+                    return;
+                }
+                $.ajax({
+                    type:"POST",
+                    contentType:"application/x-www-form-urlencoded",
+                    url:"http://localhost:8089/course/create",
+                    data:{
+                        "title":title,
+                        "description":description,
+                        "check_code":check_code,
+                        "start_time":start_time,
+                        "duration":duration,
+                        "price":price,
+                        "stock":stock
+                    },
+                    xhrFields:{withCredentials:true},
+                    success:function(data) {
+                        if (data.status == "success") {
+                            alert("创建课程成功");
+                        } else {
+                            alert("创建课程失败，因为"+data.data.errorMessage);
+                        }
+                    },
+                    error:function(data) {
+                        alert("创建课程失败，因为" + data.responseText);
+                    }
+                })
+                return false;
+            });
+        });
+    </script>
+</html>

@@ -37,4 +37,16 @@
     cursor: pointer;
     margin: 0 1% 0 1%;
     padding: 3% 0 3% 0;
+    border-radius: 3%;
+}
+
+.platform > div.navigation {
+    float: left;
+    margin: 3%;
+    color: gray;
+}
+
+.platform > div.navigation > a {
+    text-decoration: none;
+    color: #88abda;
 }

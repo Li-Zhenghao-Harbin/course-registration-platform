@@ -15,20 +15,20 @@ import java.util.Map;
 public class BaseController {
     public static final String CONTENT_TYPE_FORMED = "application/x-www-form-urlencoded";
     public static final int STU = 0, TCH = 1;
-    @ExceptionHandler(Exception.class)
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    public Object handlerException(HttpServletRequest request, Exception ex) {
-        Map<String, Object> responseData = new HashMap<>();
-        if (ex instanceof BusinessException) {
-            BusinessException businessException = (BusinessException) ex;
-            responseData.put("errorCode", businessException.getErrCode());
-            responseData.put("errorMessage", businessException.getErrMsg());
-
-        } else {
-            responseData.put("errorCode", EmBusinessError.UNKNOWN_ERROR.getErrCode());
-            responseData.put("errorMessage", EmBusinessError.UNKNOWN_ERROR.getErrMsg());
-        }
-        return CommonReturnType.create(responseData, "fail");
-    }
+//    @ExceptionHandler(Exception.class)
+//    @ResponseStatus(HttpStatus.OK)
+//    @ResponseBody
+//    public Object handlerException(HttpServletRequest request, Exception ex) {
+//        Map<String, Object> responseData = new HashMap<>();
+//        if (ex instanceof BusinessException) {
+//            BusinessException businessException = (BusinessException) ex;
+//            responseData.put("errorCode", businessException.getErrCode());
+//            responseData.put("errorMessage", businessException.getErrMsg());
+//
+//        } else {
+//            responseData.put("errorCode", EmBusinessError.UNKNOWN_ERROR.getErrCode());
+//            responseData.put("errorMessage", EmBusinessError.UNKNOWN_ERROR.getErrMsg());
+//        }
+//        return CommonReturnType.create(responseData, "fail");
+//    }
 }
