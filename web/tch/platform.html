@@ -17,10 +17,10 @@
             <div class="business_item" id="my_course">
                 我的课程&nbsp;&nbsp;&gt;&gt;
             </div>
-            <div class="business_item" id="info">
+            <div class="business_item" id="my_info">
                 个人信息&nbsp;&nbsp;&gt;&gt;
             </div>
-            <div class="business_item" id="balance">
+            <div class="business_item" id="my_balance">
                 我的余额&nbsp;&nbsp;&gt;&gt;
             </div>
         </div>
@@ -29,11 +29,21 @@
         window.onload = function() {
             setTchMenu();
         }
+        
+        document.getElementById("create_course").onclick = function() {
+            window.location.href = "create_course.html";
+        }
+        document.getElementById("my_course").onclick = function() {
+            window.location.href = "my_course.html";
+        }
+        document.getElementById("my_info").onclick = function() {
+            window.location.href = "my_info.html";
+        }
 
         jQuery(document).ready(function() {
             $(document).ready(function() {
                 $.ajax({
-                    type:"POST",
+                    type:"GET",
                     contentType:"application/x-www-form-urlencoded",
                     url:"http://localhost:8089/tch/request",
                     xhrFields:{withCredentials:true},
@@ -49,12 +59,6 @@
                     }
                 });
                 return false;
-            });
-            $("#create_course").on("click", function() {
-                window.location.href = "create_course.html";
-            });
-            $("#my_course").on("click", function() {
-                window.location.href = "my_course.html";
             });
         });
     </script>

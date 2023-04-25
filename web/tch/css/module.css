@@ -11,6 +11,21 @@
     color: #88abda;
 }
 
+.platform > div.mdiv > div {
+    clear: both;
+    padding: 5%;
+}
+
+.platform > div.mdiv > div > div.title {
+    float: left;
+    width: 35%;
+}
+
+.platform > div.mdiv > div > div.content {
+    float: left;
+    font-weight: bold;
+}
+
 .platform > div.mdiv > div.inputs {
     clear: both;
     margin-top: 10%;

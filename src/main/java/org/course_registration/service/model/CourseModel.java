@@ -15,9 +15,6 @@ public class CourseModel {
     private Integer tchId;
     private Integer stock;
 
-    public CourseModel() {
-    }
-
     public Integer getId() {
         return id;
     }

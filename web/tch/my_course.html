@@ -5,7 +5,7 @@
         <title>Course Registration Platform</title>
         <link rel="stylesheet" href="../css/style.css">
         <link rel="stylesheet" href="css/platform.css">
-        <link rel="stylesheet" href="css/my_course.css">
+        <link rel="stylesheet" href="css/module.css">
         <script src="../js/jquery-1.11.0.min.js" type="text/javascript"></script>
         <script src="../js/menu.js" type="text/javascript"></script>
         <script src="../js/navigation.js" type="text/javascript"></script>
@@ -13,7 +13,7 @@
     <body class="platform">
         <div class="menu" id="menu"></div>
         <div class="navigation" id="navigation"></div>
-        <div class="mdiv">
+        <div class="mdiv" style="margin: 1% 5% 1% 5%;padding: 2% 5% 2% 5%;">
             <h2>我的课程</h2>
             <table style="width:100%;">
                 <thead>
@@ -59,7 +59,7 @@
         jQuery(document).ready(function() {
             $(document).ready(function() {
                 $.ajax({
-                    type:"POST",
+                    type:"GET",
                     contentType:"application/x-www-form-urlencoded",
                     url:"http://localhost:8089/tch/request",
                     xhrFields:{withCredentials:true},

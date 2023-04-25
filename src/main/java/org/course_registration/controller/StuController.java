@@ -86,7 +86,7 @@ public class StuController extends BaseController {
         return CommonReturnType.create(stuVO);
     }
 
-    @RequestMapping(value = "/request", method = {RequestMethod.POST}, consumes = {CONTENT_TYPE_FORMED})
+    @RequestMapping(value = "/request", method = {RequestMethod.GET})
     @ResponseBody
     public CommonReturnType request() throws BusinessException {
         Boolean isLogin = (Boolean) httpServletRequest.getSession().getAttribute("IS_LOGIN");
