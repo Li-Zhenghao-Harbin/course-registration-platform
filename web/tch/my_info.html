@@ -50,6 +50,9 @@
         document.getElementById("modify_info").onclick = function() {
             window.location.href = "modify_info.html";
         }
+        document.getElementById("modify_password").onclick = function() {
+            window.location.href= "modify_password.html";
+        }
         document.getElementById("exit").onclick = function() {
             window.location.href = "../login.html";
         }
@@ -70,14 +73,6 @@
                         $("#id").text(data.data.id);
                         $("#name").text(data.data.name);
                         $("#gender").text(getStrFromGender(data.data.gender));
-                        // var gender = data.data.gender;
-                        // if (gender == 0) {
-                        //     $("#gender").text("女");
-                        // } else if (gender == 1) {
-                        //     $("#gender").text("男");
-                        // } else if (gender == 2) {
-                        //     $("#gender").text("保密");
-                        // }
                         $("#telephone").text(data.data.telephone);
                         $("#description").text(data.data.description);
                     },

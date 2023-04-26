@@ -34,6 +34,12 @@ public class TchServiceImpl implements TchService {
     }
 
     @Override
+    public String getPasswordById(Integer tchId) {
+        TchPasswordDO tchPasswordDO = tchPasswordDOMapper.selectByTchId(tchId);
+        return tchPasswordDO.getEncryptedPassword();
+    }
+
+    @Override
     @Transactional
     public void register(TchModel tchModel) throws BusinessException {
         if (tchModel == null) {
@@ -57,11 +63,23 @@ public class TchServiceImpl implements TchService {
             throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR);
         }
         TchDO tchDO = convertFromModel(tchModel);
-        tchDOMapper.updateByPrimaryKeySelective(tchDO);
-//        try {
-//        } catch (DuplicateKeyException ex) {
-//            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR, "手机号已被注册");
-//        }
+        try {
+            tchDOMapper.updateByPrimaryKeySelective(tchDO);
+        } catch (DuplicateKeyException ex) {
+            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR, "手机号已被注册");
+        }
+    }
+
+    @Override
+    @Transactional
+    public void modifyPassword(TchModel tchModel) throws BusinessException {
+        if (tchModel == null) {
+            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR);
+        }
+        TchDO tchDO = convertFromModel(tchModel);
+        tchModel.setId(tchDO.getId());
+        TchPasswordDO tchPasswordDO = convertPasswordFromModel(tchModel);
+        tchPasswordDOMapper.updatePasswordByTchId(tchPasswordDO);
     }
 
     @Override

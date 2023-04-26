@@ -2,6 +2,7 @@ package org.course_registration.controller;
 
 import com.alibaba.druid.util.StringUtils;
 import org.course_registration.controller.viewobject.TchVO;
+import org.course_registration.dataobject.TchPasswordDO;
 import org.course_registration.error.BusinessException;
 import org.course_registration.error.EmBusinessError;
 import org.course_registration.response.CommonReturnType;
@@ -105,6 +106,25 @@ public class TchController extends BaseController {
         tchModel.setTelephone(telephone);
         tchModel.setDescription(description);
         tchService.modifyInfo(tchModel);
+        return CommonReturnType.create(null);
+    }
+
+    @RequestMapping(value = "/modifyPassword", method = {RequestMethod.POST}, consumes = {CONTENT_TYPE_FORMED})
+    @ResponseBody
+    public CommonReturnType modifyPassword(@RequestParam(name = "previousPassword")String previousPassword,
+                                           @RequestParam(name = "newPassword")String newPassword) throws BusinessException, UnsupportedEncodingException, NoSuchAlgorithmException {
+        if (StringUtils.isEmpty(previousPassword) ||
+                StringUtils.isEmpty(newPassword)) {
+            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR);
+        }
+        TchModel tchModel = (TchModel) httpServletRequest.getSession().getAttribute("LOGIN_INFO");
+        if (previousPassword.equals(newPassword)) {
+          throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR, "新密码不能和旧密码相同");
+        } else if (!EncodeByMd5(previousPassword).equals(tchService.getPasswordById(tchModel.getId()))) {
+            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR, "旧密码错误");
+        }
+        tchModel.setEncryptedPassword(EncodeByMd5(newPassword));
+        tchService.modifyPassword(tchModel);
         return CommonReturnType.create(null);
     }
 
