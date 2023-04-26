@@ -9,6 +9,7 @@
         <script src="../js/jquery-1.11.0.min.js" type="text/javascript"></script>
         <script src="../js/menu.js" type="text/javascript"></script>
         <script src="../js/navigation.js" type="text/javascript"></script>
+        <script src="../js/gender.js" type="text/javascript"></script>
     </head>
     <body class="platform">
         <div class="menu" id="menu"></div>
@@ -35,6 +36,8 @@
                 <div class="title">用户描述</div>
                 <div class="content" id="description"></div>
             </div>
+            <button id="modify_info">修改个人信息</button>
+            <button id="modify_password">修改密码</button>
             <button style="background-color: grey;" id="exit">退出登录</button>
         </div>
     </body>
@@ -44,6 +47,9 @@
             setNavigation("我的信息");
         }
 
+        document.getElementById("modify_info").onclick = function() {
+            window.location.href = "modify_info.html";
+        }
         document.getElementById("exit").onclick = function() {
             window.location.href = "../login.html";
         }
@@ -63,14 +69,15 @@
                         $("#me").text("您好，"+data.data.name);
                         $("#id").text(data.data.id);
                         $("#name").text(data.data.name);
-                        var gender = data.data.gender;
-                        if (gender == 0) {
-                            $("#gender").text("女");
-                        } else if (gender == 1) {
-                            $("#gender").text("男");
-                        } else if (gender == 2) {
-                            $("#gender").text("保密");
-                        }
+                        $("#gender").text(getStrFromGender(data.data.gender));
+                        // var gender = data.data.gender;
+                        // if (gender == 0) {
+                        //     $("#gender").text("女");
+                        // } else if (gender == 1) {
+                        //     $("#gender").text("男");
+                        // } else if (gender == 2) {
+                        //     $("#gender").text("保密");
+                        // }
                         $("#telephone").text(data.data.telephone);
                         $("#description").text(data.data.description);
                     },

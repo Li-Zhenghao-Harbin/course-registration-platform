@@ -81,6 +81,10 @@
                 var password = $("#password").val();
                 var password_confirm = $("#password_confirm").val();
                 var otp_code = $("#otp_code").val();
+                if (name == null || name == "") {
+                    alert("用户名不能为空");
+                    return;
+                }
                 if (telephone == null || telephone == "") {
                     alert("手机号不能为空");
                     return;

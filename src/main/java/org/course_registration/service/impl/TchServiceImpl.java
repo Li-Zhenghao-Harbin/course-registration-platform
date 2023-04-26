@@ -51,6 +51,20 @@ public class TchServiceImpl implements TchService {
     }
 
     @Override
+    @Transactional
+    public void modifyInfo(TchModel tchModel) throws BusinessException {
+        if (tchModel == null) {
+            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR);
+        }
+        TchDO tchDO = convertFromModel(tchModel);
+        tchDOMapper.updateByPrimaryKeySelective(tchDO);
+//        try {
+//        } catch (DuplicateKeyException ex) {
+//            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR, "手机号已被注册");
+//        }
+    }
+
+    @Override
     public TchModel validateLogin(String telephone, String encryptedPassword) throws BusinessException {
         TchDO tchDO = tchDOMapper.selectByTelephone(telephone);
         if (tchDO == null) {

@@ -87,6 +87,27 @@ public class TchController extends BaseController {
         return CommonReturnType.create(tchVO);
     }
 
+    @RequestMapping(value = "/modifyInfo", method = {RequestMethod.POST}, consumes = {CONTENT_TYPE_FORMED})
+    @ResponseBody
+    public CommonReturnType modifyInfo(@RequestParam(name = "name")String name,
+                                       @RequestParam(name = "gender")Byte gender,
+                                       @RequestParam(name = "telephone")String telephone,
+                                       @RequestParam(name = "description")String description) throws BusinessException {
+        if (StringUtils.isEmpty(name) ||
+                gender == null ||
+                StringUtils.isEmpty(telephone) ||
+                StringUtils.isEmpty(description)) {
+            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR);
+        }
+        TchModel tchModel = (TchModel) httpServletRequest.getSession().getAttribute("LOGIN_INFO");
+        tchModel.setName(name);
+        tchModel.setGender(gender);
+        tchModel.setTelephone(telephone);
+        tchModel.setDescription(description);
+        tchService.modifyInfo(tchModel);
+        return CommonReturnType.create(null);
+    }
+
     @RequestMapping(value = "/request", method = {RequestMethod.GET})
     @ResponseBody
     public CommonReturnType request() throws BusinessException {

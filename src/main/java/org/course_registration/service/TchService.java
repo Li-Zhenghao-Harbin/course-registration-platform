@@ -6,5 +6,6 @@ import org.course_registration.service.model.TchModel;
 public interface TchService {
     TchModel getTchById(Integer id);
     void register(TchModel stuModel) throws BusinessException;
+    void modifyInfo(TchModel tchModel) throws BusinessException;
     TchModel validateLogin(String telephone, String encryptedPassword) throws BusinessException;
 }
