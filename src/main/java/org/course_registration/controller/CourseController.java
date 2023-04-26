@@ -6,6 +6,7 @@ import org.course_registration.error.BusinessException;
 import org.course_registration.error.EmBusinessError;
 import org.course_registration.response.CommonReturnType;
 import org.course_registration.service.CourseService;
+import org.course_registration.service.TchService;
 import org.course_registration.service.model.CourseModel;
 import org.course_registration.service.model.StuModel;
 import org.course_registration.service.model.TchModel;
@@ -30,6 +31,9 @@ import java.util.stream.Collectors;
 public class CourseController extends BaseController {
     @Autowired
     private CourseService courseService;
+
+    @Autowired
+    private TchService tchService;
 
     @Autowired
     private HttpServletRequest httpServletRequest;
@@ -73,6 +77,8 @@ public class CourseController extends BaseController {
         }
         CourseVO courseVO = new CourseVO();
         BeanUtils.copyProperties(courseModel, courseVO);
+        TchModel tchModel = tchService.getTchById(courseModel.getTchId());
+        courseVO.setTchName(tchModel.getName());
         return courseVO;
     }
 
@@ -85,5 +91,13 @@ public class CourseController extends BaseController {
             return courseVO;
         }).collect(Collectors.toList());
         return CommonReturnType.create(courseVOList);
+    }
+
+    @RequestMapping(value = "/get", method = {RequestMethod.GET})
+    @ResponseBody
+    private CommonReturnType getCourse(@RequestParam(name = "id")Integer id) {
+        CourseModel courseModel = courseService.getCourseById(id);
+        CourseVO courseVO = convertFromModel(courseModel);
+        return CommonReturnType.create(courseVO);
     }
 }

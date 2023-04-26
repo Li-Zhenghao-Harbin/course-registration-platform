@@ -21,3 +21,19 @@ function getGenderFromStr(str) {
     }
     return gender;
 }
+
+function getFormatDate(date) {
+    return date.toString().split('T')[0] + " " + date.toString().split('T')[1].substring(0, 5);
+}
+
+function getFormatPrice(price) {
+    return price > 0 ? price + "元" : "免费";
+}
+
+function getFormatDuration(duration) {
+    return duration + "分钟";
+}
+
+function getFormatSales(sales) {
+    return sales + "人已报名";
+}

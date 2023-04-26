@@ -9,6 +9,7 @@
         <script src="../js/jquery-1.11.0.min.js" type="text/javascript"></script>
         <script src="../js/menu.js" type="text/javascript"></script>
         <script src="../js/navigation.js" type="text/javascript"></script>
+        <script src="../js/format.js" type="text/javascript"></script>
     </head>
     <body class="platform">
         <div class="menu" id="menu"></div>
@@ -41,14 +42,10 @@
 
         var g_itemList = [];
 
-        function convertFromDate(date) {
-            return date.toString().split('T')[0] + " " + date.toString().split('T')[1].substring(0, 5);
-        }
-
         function reloadDom() {
             for (var i = 0; i < g_itemList.length; i++) {
                 var itemVO = g_itemList[i];
-                var dom = "<tr data-id='"+itemVO.id+"' id='item_detail"+itemVO.id+"'><td>"+itemVO.id+"</td><td>"+itemVO.title+"</td><td>"+itemVO.description+"</td><td>"+itemVO.checkCode+"</td><td>"+convertFromDate(itemVO.startTime)+"</td><td>"+itemVO.duration+"</td><td>"+itemVO.price+"</td><td>"+itemVO.sales+"</td><td>"+itemVO.stock+"</td></tr>";
+                var dom = "<tr data-id='"+itemVO.id+"' id='item_detail"+itemVO.id+"'><td>"+itemVO.id+"</td><td>"+itemVO.title+"</td><td>"+itemVO.description+"</td><td>"+itemVO.checkCode+"</td><td>"+getFormatDate(itemVO.startTime)+"</td><td>"+itemVO.duration+"</td><td>"+itemVO.price+"</td><td>"+itemVO.sales+"</td><td>"+itemVO.stock+"</td></tr>";
                 $("#container").append($(dom));
                 $("#item_detail"+itemVO.id).on("click",function(e){
                     window.location.href="course.html?id="+$(this).data("id");

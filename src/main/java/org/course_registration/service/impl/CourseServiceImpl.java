@@ -81,7 +81,12 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public CourseModel getCourseById(Integer id) {
-        return null;
+        CourseDO courseDO = courseDOMapper.selectByPrimaryKey(id);
+        if (courseDO == null) {
+            return null;
+        }
+        CourseStockDO courseStockDO = courseStockDOMapper.selectByCourseId(courseDO.getId());
+        return convertFromDataObject(courseDO, courseStockDO);
     }
 
     @Override

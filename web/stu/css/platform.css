@@ -48,7 +48,8 @@
     margin-top: 1%;
     background-color: #f7f7f7;
     border: #88abda solid 1px;
-    border-radius: 5%;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 .platform > div.free_course > div.course > p.title {
@@ -61,18 +62,21 @@
 }
 
 .platform > div.free_course > div.course > div.v1 > p {
-    font-weight: bold;
     float: left;
 }
 
+.platform > div.free_course > div.course > div.v1 > p.start_time {
+    font-weight: bold;
+}
+
 .platform > div.free_course > div.course > div.v1 > p.duration {
-    margin-left: 5%;
+    margin-left: 3%;
 }
 
 .platform > div.free_course > div.course > div.v1 > p.price {
     float: right;
     text-align: right;
-    margin-left: 5%;
+    margin-left: 3%;
     color: red;
 }
 
@@ -98,6 +102,7 @@
 .platform > div.paid_course {
     clear: both;
     margin: 3%;
+    cursor: pointer;
 }
 
 .platform > div.paid_course > h1 {
@@ -119,7 +124,7 @@
     margin-top: 1%;
     background-color: #f7f7f7;
     border: #88abda solid 1px;
-    border-radius: 5%;
+    border-radius: 5px;
 }
 
 .platform > div.paid_course > div.course > p.title {
@@ -132,18 +137,21 @@
 }
 
 .platform > div.paid_course > div.course > div.v1 > p {
-    font-weight: bold;
     float: left;
 }
 
+.platform > div.paid_course > div.course > div.v1 > p.start_time {
+    font-weight: bold;
+}
+
 .platform > div.paid_course > div.course > div.v1 > p.duration {
-    margin-left: 5%;
+    margin-left: 3%;
 }
 
 .platform > div.paid_course > div.course > div.v1 > p.price {
     float: right;
     text-align: right;
-    margin-left: 5%;
+    margin-left: 3%;
     color: red;
 }
 

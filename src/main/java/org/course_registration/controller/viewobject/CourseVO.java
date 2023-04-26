@@ -13,6 +13,7 @@ public class CourseVO {
     private BigDecimal price;
     private Integer sales;
     private Integer tchId;
+    private String tchName;
     private Integer stock;
 
     public CourseVO() {
@@ -88,6 +89,14 @@ public class CourseVO {
 
     public void setTchId(Integer tchId) {
         this.tchId = tchId;
+    }
+
+    public String getTchName() {
+        return tchName;
+    }
+
+    public void setTchName(String tchName) {
+        this.tchName = tchName;
     }
 
     public Integer getStock() {
