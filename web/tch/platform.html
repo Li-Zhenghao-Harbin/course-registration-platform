@@ -5,6 +5,7 @@
         <title>Course Registration Platform</title>
         <link rel="stylesheet" href="../css/style.css">
         <link rel="stylesheet" href="css/platform.css">
+        <link rel="stylesheet" href="css/menu.css">
         <script src="../js/jquery-1.11.0.min.js" type="text/javascript"></script>
         <script src="../js/menu.js" type="text/javascript"></script>
     </head>
@@ -50,7 +51,7 @@
                     success:function(data){
                         if (data.data.errCode == 20003) {
                             alert("用户未登录");
-                            window.location.href="login.html";
+                            window.location.href="../login.html";
                         }
                         $("#me").text("您好，"+data.data.name);
                     },

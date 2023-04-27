@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="zh">
+    <head>
+        <meta charset="UTF-8">
+        <title>Course Registration Platform</title>
+        <link rel="stylesheet" href="../css/style.css">
+        <link rel="stylesheet" href="css/course.css">
+        <link rel="stylesheet" href="css/menu.css"> 
+        <script src="../js/jquery-1.11.0.min.js" type="text/javascript"></script>
+        <script src="../js/menu.js" type="text/javascript"></script>
+        <script src="../js/navigation.js" type="text/javascript"></script>
+        <script src="../js/format.js" type="text/javascript"></script>
+    </head>
+    <body class="course">
+        <div class="menu" id="menu"></div>
+        <div class="bg">
+            <div class="navigation" id="navigation"></div>
+            <h1 id="course_title">course_title</h1>
+            <p id="course_id">course_id</p>
+            <p id="course_sales">course_sales</p>
+        </div>
+        <div class="course_info">
+            <div>
+                <p class="title">课程名</p>
+                <p class="content" id="course_title">course_title</p>
+            </div>
+            <div>
+                <p class="title">开课时间</p>
+                <p class="content" id="course_start_time">course_start_time</p>
+            </div>
+            <div>
+                <p class="title">课程时长</p>
+                <p class="content" id="course_duration">course_duration</p>
+            </div>
+            <div>
+                <p class="title">课程价格</p>
+                <p class="content" style="color: red;">course_price</p>
+            </div>
+            <div>
+                <p class="title">课程简介</p>
+                <p class="content" id="course_description">course_description</p>
+            </div>
+        </div>
+        <div class="tch_info">
+            <h2 id="tch_name">tch_name</h2>
+            <p id="tch_id">tch_id</p>
+            <button id="tch_home">查看主页</button>
+            <p id="tch_description">tch_description</p>
+        </div>
+        <div class="sign_up">
+            <p id="course_stock">course_stock</p>
+            <button class="sign_up" onclick="sign_up_onclick()">报名课程</button>
+        </div>
+    </body>
+    <script>
+        window.onload = function() {
+            setStuMenu();
+            setNavigation("course_title");
+        }
+
+        function sign_up_onclick() {
+            window.location.href = "sign_up_course.html";
+        }
+
+        jQuery(document).ready(function() {
+            $(document).ready(function() {
+                $.ajax({
+                    type:"GET",
+                    contentType:"application/x-www-form-urlencoded",
+                    url:"http://localhost:8089/stu/request",
+                    xhrFields:{withCredentials:true},
+                    success:function(data){
+                        if (data.data.errCode == 20003) {
+                            alert("用户未登录");
+                            window.location.href="../login.html";
+                        }
+                        $("#me").text("您好，"+data.data.name);
+                    },
+                    error:function(data){
+                        alert("获取用户登录信息失败，因为 "+data.responseText);
+                    }
+                });
+                $.ajax({
+                    type:"GET",
+                    contentType:"application/x-www-form-urlencoded",
+                    url:"http://localhost:8089/course/get",
+                    xhrFields:{withCredentials:true},
+                    success:function(data){
+                        //
+                    },
+                    error:function(data){
+                        alert("获取课程信息失败，因为 "+data.responseText);
+                    }
+                });
+                return false;
+            });
+        });
+    </script>
+</html>

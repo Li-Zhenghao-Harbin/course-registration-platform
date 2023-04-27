@@ -1,0 +1,80 @@
+.course > div.bg {
+    background-color: #88acda64;
+    padding: 5%;
+}
+
+.course > div.bg > div.navigation {
+    float: left;
+}
+
+.course > div.bg > div.navigation > a {
+    text-decoration: none;
+    color:darkblue;
+    font-weight: bold;
+}
+
+.course > div.bg > h1 {
+    color: blue;
+    opacity: 50%;
+    margin: 5% 0 5% 0;
+}
+
+.course > div.course_info {
+    clear: both;
+    float: left;
+    background-color: #f4f4f4;
+    margin: 3% 3% 0 3%;
+    width: 60%;
+    padding: 3%;
+}
+
+.course_info > div {
+    clear: both;
+}
+
+.course_info > div > p.title {
+    float: left;
+    width: 25%;
+    font-weight: bold;
+}
+
+.course_info > div > p.content {
+    float: left;
+}
+
+.course > div.tch_info {
+    float: left;
+    background-color: #f4f4f4;
+    margin: 3% 3% 3% 0%;
+    width: 19%;
+    padding: 3%;
+}
+
+.course > div.tch_info > button {
+    background-color: #88abda;
+    border: none;
+    color: #f4f4f4;
+    padding: 3%;
+}
+
+.sign_up {
+    clear: both;
+    width: 66%;
+    padding-top: 1%;
+    margin: 0 3% 5% 3%;
+}
+
+.sign_up > p {
+    text-align: center;
+}
+
+.sign_up > button {
+    margin: 0px;
+    margin-left: 10%;
+    background-color: #88abda;
+    color: #f4f4f4;
+    border: none;
+    border-radius: 5px;
+    padding: 3%;
+    width: 80%;
+}

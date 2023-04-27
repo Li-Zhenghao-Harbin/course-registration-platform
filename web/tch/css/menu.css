@@ -1,0 +1,26 @@
+.menu {
+    background-color:  #e9e9e9;
+    padding: 1%;
+    overflow: hidden;
+}
+
+.menu > p.title {
+    float: left;
+    text-align: left;
+    color: #88abda;
+    font-weight: bold;
+}
+
+.menu > p.option_left {
+    float: left;
+    text-align: left;
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+.menu > p.option_right {
+    float: right;
+    text-align: right;
+    margin-right: 20px;
+    cursor: pointer;
+}
