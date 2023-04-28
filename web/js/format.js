@@ -22,6 +22,11 @@ function getGenderFromStr(str) {
     return gender;
 }
 
+// format course
+function getFormatCourseId(id) {
+    return "课程编号：" + id;
+}
+
 function getFormatDate(date) {
     return date.toString().split('T')[0] + " " + date.toString().split('T')[1].substring(0, 5);
 }
@@ -36,4 +41,13 @@ function getFormatDuration(duration) {
 
 function getFormatSales(sales) {
     return sales + "人已报名";
+}
+
+function getFormatStock(stock) {
+    return "剩余名额：" + stock;
+}
+
+// formate tch
+function getFormatTchId(id) {
+    return "编号：" + id;
 }

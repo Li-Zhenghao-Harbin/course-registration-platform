@@ -79,6 +79,7 @@ public class CourseController extends BaseController {
         BeanUtils.copyProperties(courseModel, courseVO);
         TchModel tchModel = tchService.getTchById(courseModel.getTchId());
         courseVO.setTchName(tchModel.getName());
+        courseVO.setTchDescription(tchModel.getDescription());
         return courseVO;
     }
 

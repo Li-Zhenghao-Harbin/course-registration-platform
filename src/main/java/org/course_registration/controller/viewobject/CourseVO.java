@@ -14,6 +14,7 @@ public class CourseVO {
     private Integer sales;
     private Integer tchId;
     private String tchName;
+    private String tchDescription;
     private Integer stock;
 
     public CourseVO() {
@@ -97,6 +98,14 @@ public class CourseVO {
 
     public void setTchName(String tchName) {
         this.tchName = tchName;
+    }
+
+    public String getTchDescription() {
+        return tchDescription;
+    }
+
+    public void setTchDescription(String tchDescription) {
+        this.tchDescription = tchDescription;
     }
 
     public Integer getStock() {

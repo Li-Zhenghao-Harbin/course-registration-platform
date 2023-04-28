@@ -22,7 +22,7 @@
         <div class="course_info">
             <div>
                 <p class="title">课程名</p>
-                <p class="content" id="course_title">course_title</p>
+                <p class="content" id="course_title2">course_title</p>
             </div>
             <div>
                 <p class="title">开课时间</p>
@@ -34,7 +34,7 @@
             </div>
             <div>
                 <p class="title">课程价格</p>
-                <p class="content" style="color: red;">course_price</p>
+                <p class="content" id="course_price" style="color: red;">course_price</p>
             </div>
             <div>
                 <p class="title">课程简介</p>
@@ -55,12 +55,38 @@
     <script>
         window.onload = function() {
             setStuMenu();
-            setNavigation("course_title");
         }
 
         function sign_up_onclick() {
             window.location.href = "sign_up_course.html";
         }
+
+        function getParam(paramName) {
+            paramValue = "", isFound = !1;
+            if (this.location.search.indexOf("?") == 0 && this.location.search.indexOf("=") > 1) {
+                arrSource = unescape(this.location.search).substring(1, this.location.search.length).split("&"), i = 0;
+                while (i < arrSource.length && !isFound) arrSource[i].indexOf("=") > 0 && arrSource[i].split("=")[0].toLowerCase() == paramName.toLowerCase() && (paramValue = arrSource[i].split("=")[1], isFound = !0), i++;
+            }
+            return paramValue == "" && (paramValue = null), paramValue;
+        }
+
+        function reloadDom() {
+            setNavigation(g_courseVO.title);
+            $("#course_id").text(getFormatCourseId(g_courseVO.id));
+            $("#course_title").text(g_courseVO.title);
+            $("#course_title2").text(g_courseVO.title);
+            $("#course_description").text(g_courseVO.description);
+            $("#course_start_time").text(getFormatDate(g_courseVO.startTime));
+            $("#course_duration").text(getFormatDuration(g_courseVO.duration));
+            $("#course_price").text(getFormatPrice(g_courseVO.price));
+            $("#course_sales").text(getFormatSales(g_courseVO.sales));
+            $("#tch_id").text(getFormatTchId(g_courseVO.tchId));
+            $("#course_stock").text(getFormatStock(g_courseVO.stock));
+            $("#tch_name").text(g_courseVO.tchName);
+            $("#tch_description").text(g_courseVO.tchDescription);
+        }
+
+        var g_courseVO = {};
 
         jQuery(document).ready(function() {
             $(document).ready(function() {
@@ -84,9 +110,17 @@
                     type:"GET",
                     contentType:"application/x-www-form-urlencoded",
                     url:"http://localhost:8089/course/get",
+                    data:{
+                        "id":getParam("id")
+                    },
                     xhrFields:{withCredentials:true},
                     success:function(data){
-                        //
+                        if (data.status=="success") {
+                        g_courseVO = data.data;
+                        reloadDom();
+                    }else{
+                        alert("获取商品信息失败，因为 "+data.responseText);
+                    }
                     },
                     error:function(data){
                         alert("获取课程信息失败，因为 "+data.responseText);
