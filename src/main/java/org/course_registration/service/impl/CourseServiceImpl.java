@@ -1,7 +1,9 @@
 package org.course_registration.service.impl;
 
+import org.course_registration.dao.CourseCheckCodeDOMapper;
 import org.course_registration.dao.CourseDOMapper;
 import org.course_registration.dao.CourseStockDOMapper;
+import org.course_registration.dataobject.CourseCheckCodeDO;
 import org.course_registration.dataobject.CourseDO;
 import org.course_registration.dataobject.CourseStockDO;
 import org.course_registration.error.BusinessException;
@@ -26,6 +28,9 @@ public class CourseServiceImpl implements CourseService {
     @Autowired
     private CourseStockDOMapper courseStockDOMapper;
 
+    @Autowired
+    private CourseCheckCodeDOMapper courseCheckCodeDOMapper;
+
     @Override
     @Transactional
     public CourseModel createCourse(CourseModel courseModel) throws BusinessException {
@@ -34,10 +39,15 @@ public class CourseServiceImpl implements CourseService {
         }
         CourseDO courseDO = convertFromModel(courseModel);
         courseDOMapper.insertSelective(courseDO);
+
         courseModel.setId(courseDO.getId());
         CourseStockDO courseStockDO = convertStockFromModel(courseModel);
         courseStockDO.setCourseId(courseModel.getId());
         courseStockDOMapper.insertSelective(courseStockDO);
+
+        CourseCheckCodeDO courseCheckCodeDO = convertCheckCodeFromModel(courseModel);
+        courseCheckCodeDO.setCourseId(courseModel.getId());
+        courseCheckCodeDOMapper.insertSelective(courseCheckCodeDO);
         return courseModel;
     }
 
@@ -58,6 +68,15 @@ public class CourseServiceImpl implements CourseService {
         CourseStockDO courseStockDO = new CourseStockDO();
         BeanUtils.copyProperties(courseModel, courseStockDO);
         return courseStockDO;
+    }
+
+    private CourseCheckCodeDO convertCheckCodeFromModel(CourseModel courseModel) {
+        if (courseModel == null) {
+            return null;
+        }
+        CourseCheckCodeDO courseCheckCodeDO = new CourseCheckCodeDO();
+        BeanUtils.copyProperties(courseModel, courseCheckCodeDO);
+        return courseCheckCodeDO;
     }
 
     @Override

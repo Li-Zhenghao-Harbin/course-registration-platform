@@ -23,7 +23,6 @@
                         <th>课程编号</th>
                         <th>课程名</th>
                         <th>课程描述</th>
-                        <th>校验码</th>
                         <th>开课时间</th>
                         <th>课程时长</th>
                         <th>课程价格</th>
@@ -46,7 +45,7 @@
         function reloadDom() {
             for (var i = 0; i < g_itemList.length; i++) {
                 var itemVO = g_itemList[i];
-                var dom = "<tr data-id='"+itemVO.id+"' id='item_detail"+itemVO.id+"'><td>"+itemVO.id+"</td><td>"+itemVO.title+"</td><td>"+itemVO.description+"</td><td>"+itemVO.checkCode+"</td><td>"+getFormatDate(itemVO.startTime)+"</td><td>"+itemVO.duration+"</td><td>"+itemVO.price+"</td><td>"+itemVO.sales+"</td><td>"+itemVO.stock+"</td></tr>";
+                var dom = "<tr data-id='"+itemVO.id+"' id='item_detail"+itemVO.id+"'><td>"+itemVO.id+"</td><td>"+itemVO.title+"</td><td>"+itemVO.description+"</td><td>"+getFormatDate(itemVO.startTime)+"</td><td>"+itemVO.duration+"</td><td>"+itemVO.price+"</td><td>"+itemVO.sales+"</td><td>"+itemVO.stock+"</td></tr>";
                 $("#container").append($(dom));
                 $("#item_detail"+itemVO.id).on("click",function(e){
                     window.location.href="course.html?id="+$(this).data("id");

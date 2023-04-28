@@ -7,7 +7,6 @@ public class CourseVO {
     private Integer id;
     private String title;
     private String description;
-    private String checkCode;
     private Date startTime;
     private Integer duration;
     private BigDecimal price;
@@ -42,14 +41,6 @@ public class CourseVO {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getCheckCode() {
-        return checkCode;
-    }
-
-    public void setCheckCode(String checkCode) {
-        this.checkCode = checkCode;
     }
 
     public Date getStartTime() {

@@ -59,7 +59,7 @@ public class CourseController extends BaseController {
         CourseModel courseModel = new CourseModel();
         courseModel.setTitle(title);
         courseModel.setDescription(description);
-        courseModel.setCheckCode(checkCode);
+        courseModel.setCheckCode(EncodeByMd5(checkCode));
         courseModel.setStartTime(startTime);
         courseModel.setDuration(duration);
         courseModel.setPrice(price);
@@ -67,8 +67,9 @@ public class CourseController extends BaseController {
         TchModel tchModel = (TchModel) httpServletRequest.getSession().getAttribute("LOGIN_INFO");
         courseModel.setTchId(tchModel.getId());
         courseService.createCourse(courseModel);
-        CourseVO courseVO = convertFromModel(courseModel);
-        return CommonReturnType.create(courseVO);
+        return CommonReturnType.create(null);
+//        CourseVO courseVO = convertFromModel(courseModel);
+//        return CommonReturnType.create(courseVO);
     }
 
     private CourseVO convertFromModel(CourseModel courseModel) {
