@@ -3,8 +3,12 @@ package org.course_registration.service.impl;
 import com.alibaba.druid.util.StringUtils;
 import org.course_registration.dao.TchDOMapper;
 import org.course_registration.dao.TchPasswordDOMapper;
+import org.course_registration.dao.TchTransactionDOMapper;
+import org.course_registration.dao.TchWalletDOMapper;
 import org.course_registration.dataobject.TchDO;
 import org.course_registration.dataobject.TchPasswordDO;
+import org.course_registration.dataobject.TchTransactionDO;
+import org.course_registration.dataobject.TchWalletDO;
 import org.course_registration.error.BusinessException;
 import org.course_registration.error.EmBusinessError;
 import org.course_registration.service.TchService;
@@ -14,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import sun.util.calendar.BaseCalendar;
 
 @Service
 public class TchServiceImpl implements TchService {
@@ -22,6 +27,12 @@ public class TchServiceImpl implements TchService {
 
     @Autowired
     private TchPasswordDOMapper tchPasswordDOMapper;
+
+    @Autowired
+    private TchWalletDOMapper tchWalletDOMapper;
+
+    @Autowired
+    private TchTransactionDOMapper tchTransactionDOMapper;
 
     @Override
     public TchModel getTchById(Integer id) {
@@ -54,6 +65,8 @@ public class TchServiceImpl implements TchService {
         tchModel.setId(tchDO.getId());
         TchPasswordDO tchPasswordDO = convertPasswordFromModel(tchModel);
         tchPasswordDOMapper.insertSelective(tchPasswordDO);
+        TchWalletDO tchWalletDO = convertWalletFromModel(tchModel);
+        tchWalletDOMapper.insertSelective(tchWalletDO);
     }
 
     @Override
@@ -125,5 +138,15 @@ public class TchServiceImpl implements TchService {
         tchPasswordDO.setEncryptedPassword(tchModel.getEncryptedPassword());
         tchPasswordDO.setTchId(tchModel.getId());
         return tchPasswordDO;
+    }
+
+    private TchWalletDO convertWalletFromModel(TchModel tchModel) {
+        if (tchModel == null) {
+            return null;
+        }
+        TchWalletDO tchWalletDO = new TchWalletDO();
+        tchWalletDO.setBalance(0.0);
+        tchWalletDO.setTchId(tchModel.getId());
+        return tchWalletDO;
     }
 }

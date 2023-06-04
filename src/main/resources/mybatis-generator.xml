@@ -28,10 +28,16 @@
 
         <!--生成对应表及类名-->
 
-        <table tableName="stu_wallet" domainObjectName="StuWalletDO" enableCountByExample="false"
+<!--        <table tableName="stu_wallet" domainObjectName="StuWalletDO" enableCountByExample="false"-->
+<!--               enableUpdateByExample="false"  enableDeleteByExample="false"-->
+<!--               enableSelectByExample="false"  selectByExampleQueryId="false"></table>-->
+<!--        <table tableName="tch_wallet" domainObjectName="TchWalletDO" enableCountByExample="false"-->
+<!--               enableUpdateByExample="false"  enableDeleteByExample="false"-->
+<!--               enableSelectByExample="false"  selectByExampleQueryId="false"></table>-->
+        <table tableName="stu_transaction" domainObjectName="StuTransactionDO" enableCountByExample="false"
                enableUpdateByExample="false"  enableDeleteByExample="false"
                enableSelectByExample="false"  selectByExampleQueryId="false"></table>
-        <table tableName="tch_wallet" domainObjectName="TchWalletDO" enableCountByExample="false"
+        <table tableName="tch_transaction" domainObjectName="TchTransactionDO" enableCountByExample="false"
                enableUpdateByExample="false"  enableDeleteByExample="false"
                enableSelectByExample="false"  selectByExampleQueryId="false"></table>
     </context>

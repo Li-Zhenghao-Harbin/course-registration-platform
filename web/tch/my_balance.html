@@ -32,10 +32,6 @@
             setNavigation("我的余额");
         }
 
-        document.getElementById("exit").onclick = function() {
-            window.location.href = "../login.html";
-        }
-
         jQuery(document).ready(function() {
             $(document).ready(function() {
                 $.ajax({
@@ -49,7 +45,25 @@
                             window.location.href="../login.html";
                         }
                         $("#me").text("您好，"+data.data.name);
-                        $("#balance").text(data.data.balance);
+                    },
+                    error:function(data){
+                        alert("获取用户登录信息失败，因为 "+data.responseText);
+                    }
+                });
+                return false;
+            });
+            $(document).ready(function() {
+                $.ajax({
+                    type:"GET",
+                    contentType:"application/x-www-form-urlencoded",
+                    url:"http://localhost:8089/tchWallet/getWallet",
+                    xhrFields:{withCredentials:true},
+                    success:function(data){
+                        if (data.status=="success") {
+                            $("#balance").text(data.data.balance);
+                        }else{
+                            alert("获取余额失败，因为 "+data.responseText);
+                        }
                     },
                     error:function(data){
                         alert("获取用户登录信息失败，因为 "+data.responseText);
