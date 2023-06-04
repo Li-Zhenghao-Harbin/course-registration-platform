@@ -68,8 +68,6 @@ public class CourseController extends BaseController {
         courseModel.setTchId(tchModel.getId());
         courseService.createCourse(courseModel);
         return CommonReturnType.create(null);
-//        CourseVO courseVO = convertFromModel(courseModel);
-//        return CommonReturnType.create(courseVO);
     }
 
     private CourseVO convertFromModel(CourseModel courseModel) {
@@ -101,5 +99,12 @@ public class CourseController extends BaseController {
         CourseModel courseModel = courseService.getCourseById(id);
         CourseVO courseVO = convertFromModel(courseModel);
         return CommonReturnType.create(courseVO);
+    }
+
+    @RequestMapping(value = "/sign_up", method = {RequestMethod.POST}, consumes = {CONTENT_TYPE_FORMED})
+    @ResponseBody
+    private CommonReturnType signUpCourse(@RequestParam(name = "course_id")Integer courseId,
+                                          @RequestParam(name = "stu_id")Integer stuId) {
+        return null;
     }
 }

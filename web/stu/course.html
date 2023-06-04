@@ -58,7 +58,7 @@
         }
 
         function sign_up_onclick() {
-            window.location.href = "sign_up_course.html";
+            
         }
 
         function getParam(paramName) {
@@ -116,11 +116,11 @@
                     xhrFields:{withCredentials:true},
                     success:function(data){
                         if (data.status=="success") {
-                        g_courseVO = data.data;
-                        reloadDom();
-                    }else{
-                        alert("获取商品信息失败，因为 "+data.responseText);
-                    }
+                            g_courseVO = data.data;
+                            reloadDom();
+                        }else{
+                            alert("获取商品信息失败，因为 "+data.responseText);
+                        }
                     },
                     error:function(data){
                         alert("获取课程信息失败，因为 "+data.responseText);

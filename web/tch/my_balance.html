@@ -6,42 +6,34 @@
         <link rel="stylesheet" href="../css/style.css">
         <link rel="stylesheet" href="css/platform.css">
         <link rel="stylesheet" href="css/menu.css">
+        <link rel="stylesheet" href="css/module.css">
         <script src="../js/jquery-1.11.0.min.js" type="text/javascript"></script>
         <script src="../js/menu.js" type="text/javascript"></script>
+        <script src="../js/navigation.js" type="text/javascript"></script>
+        <script src="../js/format.js" type="text/javascript"></script>
     </head>
     <body class="platform">
         <div class="menu" id="menu"></div>
-        <div class="business">
-            <div class="business_item" id="create_course">
-                创建课程&nbsp;&nbsp;&gt;&gt;
+        <div class="navigation" id="navigation"></div>
+        <div class="mdiv">
+            <h2>我的余额</h2>
+            <div>
+                <div class="title">余额（元）</div>
+                <div class="content" id="balance"></div>
             </div>
-            <div class="business_item" id="my_course">
-                我的课程&nbsp;&nbsp;&gt;&gt;
-            </div>
-            <div class="business_item" id="my_info">
-                个人信息&nbsp;&nbsp;&gt;&gt;
-            </div>
-            <div class="business_item" id="my_balance">
-                我的余额&nbsp;&nbsp;&gt;&gt;
-            </div>
+            <button id="recharge">充值</button>
+            <button id="withdrawal">提现</button>
+            <button id="record">交易记录</button>
         </div>
     </body>
     <script>
         window.onload = function() {
             setTchMenu();
+            setNavigation("我的余额");
         }
-        
-        document.getElementById("create_course").onclick = function() {
-            window.location.href = "create_course.html";
-        }
-        document.getElementById("my_course").onclick = function() {
-            window.location.href = "my_course.html";
-        }
-        document.getElementById("my_info").onclick = function() {
-            window.location.href = "my_info.html";
-        }
-        document.getElementById("my_balance").onclick = function() {
-            window.location.href = "my_balance.html";
+
+        document.getElementById("exit").onclick = function() {
+            window.location.href = "../login.html";
         }
 
         jQuery(document).ready(function() {
@@ -57,6 +49,7 @@
                             window.location.href="../login.html";
                         }
                         $("#me").text("您好，"+data.data.name);
+                        $("#balance").text(data.data.balance);
                     },
                     error:function(data){
                         alert("获取用户登录信息失败，因为 "+data.responseText);
