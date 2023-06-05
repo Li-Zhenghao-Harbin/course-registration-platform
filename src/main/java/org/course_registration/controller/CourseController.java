@@ -100,11 +100,4 @@ public class CourseController extends BaseController {
         CourseVO courseVO = convertFromModel(courseModel);
         return CommonReturnType.create(courseVO);
     }
-
-    @RequestMapping(value = "/sign_up", method = {RequestMethod.POST}, consumes = {CONTENT_TYPE_FORMED})
-    @ResponseBody
-    private CommonReturnType signUpCourse(@RequestParam(name = "course_id")Integer courseId,
-                                          @RequestParam(name = "stu_id")Integer stuId) {
-        return null;
-    }
 }

@@ -59,7 +59,7 @@ public class TchController extends BaseController {
         tchModel.setName(name);
         tchModel.setGender(new Byte(String.valueOf(gender.intValue())));
         tchModel.setTelephone(telephone);
-        tchModel.setDescription("讲师：" + name);
+        tchModel.setDescription(name + "教师");
         tchModel.setEncryptedPassword(this.EncodeByMd5(password));
         tchService.register(tchModel);
         return CommonReturnType.create(null);

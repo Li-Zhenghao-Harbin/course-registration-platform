@@ -16,24 +16,21 @@
         <div class="menu" id="menu"></div>
         <div class="navigation" id="navigation"></div>
         <div class="mdiv">
-            <h2>我的余额</h2>
+            <h2>我的交易记录</h2>
             <div>
-                <div class="title">余额（元）</div>
-                <div class="content" id="balance"></div>
+                
             </div>
-            <button id="recharge">充值</button>
-            <button id="withdrawal">提现</button>
-            <button id="record">交易记录</button>
+            <button id="back">返回</button>
         </div>
     </body>
     <script>
         window.onload = function() {
             setTchMenu();
-            setNavigation("我的余额");
+            setNavigation("我的交易记录");
         }
 
-        document.getElementById("record").onclick = function() {
-            window.location.href = "my_transaction.html";
+        document.getElementById("back").onclick = function() {
+            window.location.href = "my_balance.html";
         }
 
         jQuery(document).ready(function() {
@@ -55,13 +52,13 @@
                     }
                 });
                 $.ajax({
-                    type:"GET",
+                    type:"POST",
                     contentType:"application/x-www-form-urlencoded",
-                    url:"http://localhost:8089/tchWallet/getWallet",
+                    url:"http://localhost:8089/tchTransaction/listTransaction",
                     xhrFields:{withCredentials:true},
                     success:function(data){
                         if (data.status=="success") {
-                            $("#balance").text(data.data.balance);
+                            //
                         }else{
                             alert("获取余额失败，因为 "+data.responseText);
                         }

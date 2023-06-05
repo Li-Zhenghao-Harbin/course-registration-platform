@@ -20,6 +20,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sun.util.calendar.BaseCalendar;
 
+import java.util.Date;
+
 @Service
 public class TchServiceImpl implements TchService {
     @Autowired
@@ -67,6 +69,8 @@ public class TchServiceImpl implements TchService {
         tchPasswordDOMapper.insertSelective(tchPasswordDO);
         TchWalletDO tchWalletDO = convertWalletFromModel(tchModel);
         tchWalletDOMapper.insertSelective(tchWalletDO);
+        TchTransactionDO tchTransactionDO = convertTransactionFromModel(tchModel);
+        tchTransactionDOMapper.insertSelective(tchTransactionDO);
     }
 
     @Override
@@ -148,5 +152,17 @@ public class TchServiceImpl implements TchService {
         tchWalletDO.setBalance(0.0);
         tchWalletDO.setTchId(tchModel.getId());
         return tchWalletDO;
+    }
+
+    private TchTransactionDO convertTransactionFromModel(TchModel tchModel) {
+        if (tchModel == null) {
+            return null;
+        }
+        TchTransactionDO tchTransactionDO = new TchTransactionDO();
+        tchTransactionDO.setAmount(0.0);
+        tchTransactionDO.setDescription("注册账户");
+        tchTransactionDO.setTime(new Date());
+        tchTransactionDO.setTchId(tchModel.getId());
+        return tchTransactionDO;
     }
 }
