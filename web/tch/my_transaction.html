@@ -15,22 +15,34 @@
     <body class="platform">
         <div class="menu" id="menu"></div>
         <div class="navigation" id="navigation"></div>
-        <div class="mdiv">
-            <h2>我的交易记录</h2>
-            <div>
-                
-            </div>
-            <button id="back">返回</button>
+        <div class="mdiv"  style="margin: 1% 5% 1% 5%;padding: 2% 5% 2% 5%;">
+            <h2>交易记录</h2>
+            <table style="width:100%;">
+                <thead>
+                    <tr>
+                        <th>交易金额</th>
+                        <th>描述</th>
+                        <th>日期</th>
+                    </tr>
+                </thead>
+                <tbody id="container" style="text-align: center; background-color: aliceblue; cursor: pointer;"></tbody>
+            </table>
         </div>
     </body>
     <script>
         window.onload = function() {
             setTchMenu();
-            setNavigation("我的交易记录");
+            setNavigation("交易记录");
         }
 
-        document.getElementById("back").onclick = function() {
-            window.location.href = "my_balance.html";
+        var g_transactionList = [];
+
+        function reloadDom() {
+            for (var i = 0; i < g_transactionList.length; i++) {
+                var transactionVO = g_transactionList[i];
+                var dom = "<tr data-id='"+transactionVO.id+"' id='item_detail"+transactionVO.id+"'><td>"+transactionVO.amount+"</td><td>"+transactionVO.description+"</td><td>"+getFormatDate(transactionVO.time)+"</td></tr>";
+                $("#container").append($(dom));
+            }
         }
 
         jQuery(document).ready(function() {
@@ -58,7 +70,8 @@
                     xhrFields:{withCredentials:true},
                     success:function(data){
                         if (data.status=="success") {
-                            //
+                            g_transactionList = data.data;
+                            reloadDom();
                         }else{
                             alert("获取余额失败，因为 "+data.responseText);
                         }

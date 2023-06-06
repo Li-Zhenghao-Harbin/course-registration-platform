@@ -114,4 +114,9 @@
       tch_id = #{tchId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <update id="withdrawal">
+    update tch_wallet
+    set balance = balance - #{amount,jdbcType=DOUBLE}
+    where tch_id = #{tchId,jdbcType=INTEGER};
+  </update>
 </mapper>

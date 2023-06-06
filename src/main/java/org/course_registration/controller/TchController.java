@@ -7,6 +7,7 @@ import org.course_registration.error.BusinessException;
 import org.course_registration.error.EmBusinessError;
 import org.course_registration.response.CommonReturnType;
 import org.course_registration.service.TchService;
+import org.course_registration.service.TchTransactionService;
 import org.course_registration.service.model.TchModel;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
 import java.security.NoSuchAlgorithmException;
+import java.util.Date;
 import java.util.Random;
 
 @Controller("tch")
@@ -26,13 +29,16 @@ public class TchController extends BaseController {
     private TchService tchService;
 
     @Autowired
+    private TchTransactionService tchTransactionService;
+
+    @Autowired
     private HttpServletRequest httpServletRequest;
 
     @RequestMapping(value = "/getOtp", method = {RequestMethod.POST}, consumes = {CONTENT_TYPE_FORMED})
     @ResponseBody
     public CommonReturnType getOtp(@RequestParam(name = "telephone")String telephone) {
         Random random = new Random();
-        int randomInt = random.nextInt(99999) + 100000;
+        int randomInt = random.nextInt(99999) + 10000;
         String otpCode = String.valueOf(randomInt);
         httpServletRequest.getSession().setAttribute(telephone, otpCode);
         System.out.println("手机号：" + telephone + "，验证码：" + otpCode);

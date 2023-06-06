@@ -16,28 +16,30 @@
         <div class="menu" id="menu"></div>
         <div class="navigation" id="navigation"></div>
         <div class="mdiv">
-            <h2>我的余额</h2>
-            <div>
-                <div class="title">余额（元）</div>
-                <div class="content" id="balance"></div>
+            <h2>提现</h2>
+            <div class="inputs">
+                <div>
+                    提现金额<br/>
+                    <input class="input" type="text" name="title" id="amount">
+                </div>
+                <p style="text-align:right;" id="balance"></p>
+                <u><p style="text-align:right;cursor: pointer;" id="withdrawal_all">提现全部</p></u>
             </div>
-            <button id="withdrawal">提现</button>
-            <button id="record">交易记录</button>
+            <button id="withdrawal">确认</button>
         </div>
     </body>
     <script>
         window.onload = function() {
             setTchMenu();
-            setNavigation("我的余额");
+            setNavigation("提现");
         }
 
-        document.getElementById("withdrawal").onclick = function() {
-            window.location.href = "withdrawal.html";
+        var balance;
+        
+        document.getElementById("withdrawal_all").onclick = function() {
+            document.getElementById("amount").value = balance;
         }
 
-        document.getElementById("record").onclick = function() {
-            window.location.href = "my_transaction.html";
-        }
 
         jQuery(document).ready(function() {
             $(document).ready(function() {
@@ -64,7 +66,7 @@
                     xhrFields:{withCredentials:true},
                     success:function(data){
                         if (data.status=="success") {
-                            $("#balance").text(data.data.balance);
+                            $("#balance").text("当前余额：" + (balance = data.data.balance));
                         }else{
                             alert("获取余额失败，因为 "+data.responseText);
                         }
@@ -73,6 +75,43 @@
                         alert("获取用户登录信息失败，因为 "+data.responseText);
                     }
                 });
+                return false;
+            });
+            $("#withdrawal").on("click", function() {
+                var amount = $("#amount").val();
+                if (amount == null || amount == "") {
+                    alert("提现金额不能为空");
+                    return;
+                }
+                if (amount <= 0) {
+                    alert("提现金额不能小于0");
+                    return;
+                }
+                if (amount > balance) {
+                    alert("提现金额不能大于当前余额");
+                    return;
+                }
+                $.ajax({
+                    type:"POST",
+                    contentType:"application/x-www-form-urlencoded",
+                    url:"http://localhost:8089/tchWallet/withdrawal",
+                    data:{
+                        "amount":amount,
+                    },
+                    xhrFields:{withCredentials:true},
+                    success:function(data) {
+                        if (data.status == "success") {
+                            alert("提现成功");
+                            document.getElementById("amount").value = "";
+                            document.location.reload();
+                        } else {
+                            alert("提现失败，因为"+data.data.errorMessage);
+                        }
+                    },
+                    error:function(data) {
+                        alert("提现失败，因为" + data.responseText);
+                    }
+                })
                 return false;
             });
         });

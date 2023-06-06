@@ -31,7 +31,7 @@ public class TchTransactionServiceImpl implements TchTransactionService {
         tchTransactionModel.setAmount(amount);
         tchTransactionModel.setDescription(description);
         tchTransactionModel.setTime(time);
-        tchTransactionModel.setId(tchId);
+        tchTransactionModel.setTchId(tchId);
         TchTransactionDO tchTransactionDO = convertFromModel(tchTransactionModel);
         tchTransactionDOMapper.insertSelective(tchTransactionDO);
         return tchTransactionModel;
@@ -42,7 +42,7 @@ public class TchTransactionServiceImpl implements TchTransactionService {
             return null;
         }
         TchTransactionDO tchTransactionDO = new TchTransactionDO();
-        BeanUtils.copyProperties(tchTransactionDO, tchTransactionModel);
+        BeanUtils.copyProperties(tchTransactionModel, tchTransactionDO);
         tchTransactionDO.setAmount(tchTransactionModel.getAmount().doubleValue());
         return tchTransactionDO;
     }

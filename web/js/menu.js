@@ -3,5 +3,8 @@ function setStuMenu() {
 }
 
 function setTchMenu() {
-    document.getElementById("menu").innerHTML = "<p class=title>在线课程注册系统（教师端）</p><p class=option_right id=me>user_name</p>"
+    document.getElementById("menu").innerHTML = "<p class=title>在线课程注册系统（教师端）</p><p class=option_right id=me>user_name</p>";
+    document.getElementById("me").onclick = function() {
+        window.location.href = "my_info.html";
+    }
 }

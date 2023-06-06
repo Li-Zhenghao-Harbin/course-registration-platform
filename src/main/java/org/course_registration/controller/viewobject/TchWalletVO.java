@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 public class TchWalletVO {
     private Integer id;
     private BigDecimal balance;
+    private Integer tchId;
 
     public Integer getId() {
         return id;
@@ -20,5 +21,13 @@ public class TchWalletVO {
 
     public void setBalance(BigDecimal balance) {
         this.balance = balance;
+    }
+
+    public Integer getTchId() {
+        return tchId;
+    }
+
+    public void setTchId(Integer tchId) {
+        this.tchId = tchId;
     }
 }

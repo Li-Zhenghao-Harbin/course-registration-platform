@@ -12,6 +12,8 @@ import org.course_registration.dataobject.TchWalletDO;
 import org.course_registration.error.BusinessException;
 import org.course_registration.error.EmBusinessError;
 import org.course_registration.service.TchService;
+import org.course_registration.service.TchTransactionService;
+import org.course_registration.service.TchWalletService;
 import org.course_registration.service.model.TchModel;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sun.util.calendar.BaseCalendar;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Service
@@ -34,7 +37,7 @@ public class TchServiceImpl implements TchService {
     private TchWalletDOMapper tchWalletDOMapper;
 
     @Autowired
-    private TchTransactionDOMapper tchTransactionDOMapper;
+    private TchTransactionService tchTransactionService;
 
     @Override
     public TchModel getTchById(Integer id) {
@@ -69,8 +72,7 @@ public class TchServiceImpl implements TchService {
         tchPasswordDOMapper.insertSelective(tchPasswordDO);
         TchWalletDO tchWalletDO = convertWalletFromModel(tchModel);
         tchWalletDOMapper.insertSelective(tchWalletDO);
-        TchTransactionDO tchTransactionDO = convertTransactionFromModel(tchModel);
-        tchTransactionDOMapper.insertSelective(tchTransactionDO);
+        tchTransactionService.createTransaction(new BigDecimal(0), "创建账户", new Date(), tchModel.getId());
     }
 
     @Override
@@ -152,17 +154,5 @@ public class TchServiceImpl implements TchService {
         tchWalletDO.setBalance(0.0);
         tchWalletDO.setTchId(tchModel.getId());
         return tchWalletDO;
-    }
-
-    private TchTransactionDO convertTransactionFromModel(TchModel tchModel) {
-        if (tchModel == null) {
-            return null;
-        }
-        TchTransactionDO tchTransactionDO = new TchTransactionDO();
-        tchTransactionDO.setAmount(0.0);
-        tchTransactionDO.setDescription("注册账户");
-        tchTransactionDO.setTime(new Date());
-        tchTransactionDO.setTchId(tchModel.getId());
-        return tchTransactionDO;
     }
 }

@@ -40,14 +40,14 @@
             setNavigation("我的课程");
         }
 
-        var g_itemList = [];
+        var g_courseList = [];
 
         function reloadDom() {
-            for (var i = 0; i < g_itemList.length; i++) {
-                var itemVO = g_itemList[i];
-                var dom = "<tr data-id='"+itemVO.id+"' id='item_detail"+itemVO.id+"'><td>"+itemVO.id+"</td><td>"+itemVO.title+"</td><td>"+itemVO.description+"</td><td>"+getFormatDate(itemVO.startTime)+"</td><td>"+itemVO.duration+"</td><td>"+itemVO.price+"</td><td>"+itemVO.sales+"</td><td>"+itemVO.stock+"</td></tr>";
+            for (var i = 0; i < g_courseList.length; i++) {
+                var courseVO = g_courseList[i];
+                var dom = "<tr data-id='"+courseVO.id+"' id='item_detail"+courseVO.id+"'><td>"+courseVO.id+"</td><td>"+courseVO.title+"</td><td>"+courseVO.description+"</td><td>"+getFormatDate(courseVO.startTime)+"</td><td>"+courseVO.duration+"</td><td>"+courseVO.price+"</td><td>"+courseVO.sales+"</td><td>"+courseVO.stock+"</td></tr>";
                 $("#container").append($(dom));
-                $("#item_detail"+itemVO.id).on("click",function(e){
+                $("#item_detail"+courseVO.id).on("click",function(e){
                     window.location.href="course.html?id="+$(this).data("id");
                 });
             }
@@ -77,7 +77,7 @@
                     xhrFields:{withCredentials:true},
                     success:function(data){
                         if (data.status=="success") {
-                            g_itemList = data.data;
+                            g_courseList = data.data;
                             reloadDom();
                         }else{
                             alert("获取课程失败，因为 "+data.responseText);

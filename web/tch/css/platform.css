@@ -23,3 +23,7 @@
     text-decoration: none;
     color: #88abda;
 }
+
+.platform > div > table {
+    line-height: 200%;
+}
