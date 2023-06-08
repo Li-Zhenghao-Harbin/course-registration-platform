@@ -72,3 +72,19 @@
 .platform > div.course_preview > div.course > a {
     color: #88abda;
 }
+
+
+.platform > div.navigation {
+    float: left;
+    margin: 3%;
+    color: gray;
+}
+
+.platform > div.navigation > a {
+    text-decoration: none;
+    color: #88abda;
+}
+
+.platform > div > table {
+    line-height: 200%;
+}

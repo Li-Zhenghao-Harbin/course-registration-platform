@@ -21,6 +21,13 @@
     -->
     id, amount, description, time, stu_id
   </sql>
+  <select id="listTransaction" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from stu_transaction
+    where stu_id = #{stuId,jdbcType=INTEGER}
+    order by id
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--
       WARNING - @mbg.generated

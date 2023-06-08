@@ -30,6 +30,12 @@
     from stu_wallet
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="selectByStuId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from stu_wallet
+    where stu_id = #{stuId,jdbcType=INTEGER}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     <!--
       WARNING - @mbg.generated
@@ -107,5 +113,10 @@
     set balance = #{balance,jdbcType=DOUBLE},
       stu_id = #{stuId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="recharge">
+    update stu_wallet
+    set balance = balance + #{amount,jdbcType=DOUBLE}
+    where stu_id = #{stuId,jdbcType=INTEGER};
   </update>
 </mapper>

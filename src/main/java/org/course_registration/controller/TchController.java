@@ -138,8 +138,6 @@ public class TchController extends BaseController {
         return CommonReturnType.create(tchVO);
     }
 
-    @RequestMapping
-
     private TchVO convertFromModel(TchModel tchModel) {
         if (tchModel == null) {
             return null;

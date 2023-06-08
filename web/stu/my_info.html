@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh">
+    <head>
+        <meta charset="UTF-8">
+        <title>Course Registration Platform</title>
+        <link rel="stylesheet" href="../css/style.css">
+        <link rel="stylesheet" href="css/platform.css">
+        <link rel="stylesheet" href="css/menu.css">
+        <link rel="stylesheet" href="css/module.css">
+        <script src="../js/jquery-1.11.0.min.js" type="text/javascript"></script>
+        <script src="../js/menu.js" type="text/javascript"></script>
+        <script src="../js/navigation.js" type="text/javascript"></script>
+        <script src="../js/format.js" type="text/javascript"></script>
+    </head>
+    <body class="platform">
+        <div class="menu" id="menu"></div>
+        <div class="navigation" id="navigation"></div>
+        <div class="mdiv">
+            <h2>我的信息</h2>
+            <div>
+                <div class="title">编号</div>
+                <div class="content" id="id"></div>
+            </div>
+            <div>
+                <div class="title">用户名</div>
+                <div class="content" id="name"></div>
+            </div>
+            <div>
+                <div class="title">性别</div>
+                <div class="content" id="gender"></div>
+            </div>
+            <div>
+                <div class="title">手机号</div>
+                <div class="content" id="telephone"></div>
+            </div>
+            <button id="modify_info">修改个人信息</button>
+            <button id="modify_password">修改密码</button>
+            <button style="background-color: grey;" id="exit">退出登录</button>
+        </div>
+    </body>
+    <script>
+        window.onload = function() {
+            setStuMenu();
+            setNavigation("我的信息");
+        }
+
+        document.getElementById("modify_info").onclick = function() {
+            window.location.href = "modify_info.html";
+        }
+        document.getElementById("modify_password").onclick = function() {
+            window.location.href= "modify_password.html";
+        }
+        document.getElementById("exit").onclick = function() {
+            window.location.href = "../login.html";
+        }
+
+        jQuery(document).ready(function() {
+            $(document).ready(function() {
+                $.ajax({
+                    type:"GET",
+                    contentType:"application/x-www-form-urlencoded",
+                    url:"http://localhost:8089/stu/request",
+                    xhrFields:{withCredentials:true},
+                    success:function(data){
+                        if (data.data.errCode == 20003) {
+                            alert("用户未登录");
+                            window.location.href="../login.html";
+                        }
+                        $("#me").text("您好，"+data.data.name);
+                        $("#id").text(data.data.id);
+                        $("#name").text(data.data.name);
+                        $("#gender").text(getStrFromGender(data.data.gender));
+                        $("#telephone").text(data.data.telephone);
+                    },
+                    error:function(data){
+                        alert("获取用户登录信息失败，因为 "+data.responseText);
+                    }
+                });
+                return false;
+            });
+        });
+    </script>
+</html>

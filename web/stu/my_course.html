@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="zh">
+    <head>
+        <meta charset="UTF-8">
+        <title>Course Registration Platform</title>
+        <link rel="stylesheet" href="../css/style.css">
+        <link rel="stylesheet" href="css/platform.css">
+        <link rel="stylesheet" href="css/menu.css">
+        <link rel="stylesheet" href="css/module.css">
+        <script src="../js/jquery-1.11.0.min.js" type="text/javascript"></script>
+        <script src="../js/menu.js" type="text/javascript"></script>
+        <script src="../js/navigation.js" type="text/javascript"></script>
+        <script src="../js/format.js" type="text/javascript"></script>
+    </head>
+    <body class="platform">
+        <div class="menu" id="menu"></div>
+        <div class="navigation" id="navigation"></div>
+        <div class="mdiv" style="margin: 1% 5% 1% 5%;padding: 2% 5% 2% 5%;">
+            <h2>我的课程</h2>
+            <table style="width:100%;">
+                <thead>
+                    <tr>
+                        <th>课程编号</th>
+                        <th>课程名</th>
+                        <th>课程描述</th>
+                        <th>开课时间</th>
+                        <th>课程时长</th>
+                        <th>课程价格</th>
+                        <th>报名人数</th>
+                        <th>课程剩余位置</th>
+                    </tr>
+                </thead>
+                <tbody id="container" style="text-align: center; background-color: aliceblue; cursor: pointer;"></tbody>
+            </table>
+        </div>
+    </body>
+    <script>
+        window.onload = function() {
+            setStuMenu();
+            setNavigation("我的课程");
+        }
+
+        var g_courseList = [];
+
+        function reloadDom() {
+            for (var i = 0; i < g_courseList.length; i++) {
+                var courseVO = g_courseList[i];
+                var dom = "<tr data-id='"+courseVO.id+"' id='item_detail"+courseVO.id+"'><td>"+courseVO.id+"</td><td>"+courseVO.title+"</td><td>"+courseVO.description+"</td><td>"+getFormatDate(courseVO.startTime)+"</td><td>"+courseVO.duration+"</td><td>"+courseVO.price+"</td><td>"+courseVO.sales+"</td><td>"+courseVO.stock+"</td></tr>";
+                $("#container").append($(dom));
+                $("#item_detail"+courseVO.id).on("click",function(e){
+                    window.location.href="course.html?id="+$(this).data("id");
+                });
+            }
+        }
+
+        jQuery(document).ready(function() {
+            $(document).ready(function() {
+                $.ajax({
+                    type:"GET",
+                    contentType:"application/x-www-form-urlencoded",
+                    url:"http://localhost:8089/stu/request",
+                    xhrFields:{withCredentials:true},
+                    success:function(data){
+                        if (data.data.errCode == 20003) {
+                            alert("用户未登录");
+                            window.location.href="../login.html";
+                        }
+                        $("#me").text("您好，"+data.data.name);
+                    },
+                    error:function(data){
+                        alert("获取用户登录信息失败，因为 "+data.responseText);
+                    }
+                });
+                $.ajax({
+                    type:"GET",
+                    url:"http://localhost:8089/course/list",
+                    xhrFields:{withCredentials:true},
+                    success:function(data){
+                        if (data.status=="success") {
+                            g_courseList = data.data;
+                            reloadDom();
+                        }else{
+                            alert("获取课程失败，因为 "+data.responseText);
+                        }
+                    },
+                    error:function(data){
+                        alert("获取课程失败，因为 "+data.responseText);
+                    }
+                });
+                return false;
+            });
+        });
+    </script>
+</html>

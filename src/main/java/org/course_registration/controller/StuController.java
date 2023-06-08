@@ -7,6 +7,7 @@ import org.course_registration.error.EmBusinessError;
 import org.course_registration.response.CommonReturnType;
 import org.course_registration.service.StuService;
 import org.course_registration.service.model.StuModel;
+import org.course_registration.service.model.TchModel;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,7 +32,7 @@ public class StuController extends BaseController {
     @ResponseBody
     public CommonReturnType getOtp(@RequestParam(name = "telephone")String telephone) {
         Random random = new Random();
-        int randomInt = random.nextInt(99999) + 100000;
+        int randomInt = random.nextInt(99999) + 10000;
         String otpCode = String.valueOf(randomInt);
         httpServletRequest.getSession().setAttribute(telephone, otpCode);
         System.out.println("手机号：" + telephone + "，验证码：" + otpCode);
@@ -76,6 +77,43 @@ public class StuController extends BaseController {
         this.httpServletRequest.getSession().setAttribute("LOGIN_INFO", stuModel);
         StuVO stuVO = convertFromModel(stuModel);
         return CommonReturnType.create(stuVO);
+    }
+
+    @RequestMapping(value = "/modifyInfo", method = {RequestMethod.POST}, consumes = {CONTENT_TYPE_FORMED})
+    @ResponseBody
+    public CommonReturnType modifyInfo(@RequestParam(name = "name")String name,
+                                       @RequestParam(name = "gender")Byte gender,
+                                       @RequestParam(name = "telephone")String telephone) throws BusinessException {
+        if (StringUtils.isEmpty(name) ||
+                gender == null ||
+                StringUtils.isEmpty(telephone)) {
+            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR);
+        }
+        StuModel stuModel = (StuModel) httpServletRequest.getSession().getAttribute("LOGIN_INFO");
+        stuModel.setName(name);
+        stuModel.setGender(gender);
+        stuModel.setTelephone(telephone);
+        stuService.modifyInfo(stuModel);
+        return CommonReturnType.create(null);
+    }
+
+    @RequestMapping(value = "/modifyPassword", method = {RequestMethod.POST}, consumes = {CONTENT_TYPE_FORMED})
+    @ResponseBody
+    public CommonReturnType modifyPassword(@RequestParam(name = "previousPassword")String previousPassword,
+                                           @RequestParam(name = "newPassword")String newPassword) throws BusinessException, UnsupportedEncodingException, NoSuchAlgorithmException {
+        if (StringUtils.isEmpty(previousPassword) ||
+                StringUtils.isEmpty(newPassword)) {
+            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR);
+        }
+        StuModel stuModel = (StuModel) httpServletRequest.getSession().getAttribute("LOGIN_INFO");
+        if (previousPassword.equals(newPassword)) {
+            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR, "新密码不能和旧密码相同");
+        } else if (!EncodeByMd5(previousPassword).equals(stuService.getPasswordById(stuModel.getId()))) {
+            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR, "旧密码错误");
+        }
+        stuModel.setEncryptedPassword(EncodeByMd5(newPassword));
+        stuService.modifyPassword(stuModel);
+        return CommonReturnType.create(null);
     }
 
     @RequestMapping(value = "/request", method = {RequestMethod.GET})

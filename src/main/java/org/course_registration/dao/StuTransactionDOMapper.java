@@ -1,6 +1,9 @@
 package org.course_registration.dao;
 
 import org.course_registration.dataobject.StuTransactionDO;
+import org.course_registration.dataobject.TchTransactionDO;
+
+import java.util.List;
 
 public interface StuTransactionDOMapper {
     /**
@@ -9,6 +12,8 @@ public interface StuTransactionDOMapper {
      *
      * @mbg.generated Sun Jun 04 20:05:34 CST 2023
      */
+    List<StuTransactionDO> listTransaction(Integer stuId);
+
     int deleteByPrimaryKey(Integer id);
 
     /**
