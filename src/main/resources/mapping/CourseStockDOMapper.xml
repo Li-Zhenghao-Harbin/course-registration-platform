@@ -114,4 +114,9 @@
       course_id = #{courseId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <update id="decreaseStock">
+    update course_stock
+    set stock = stock - 1
+    where course_id = #{courseId} and stock >= 1;
+  </update>
 </mapper>

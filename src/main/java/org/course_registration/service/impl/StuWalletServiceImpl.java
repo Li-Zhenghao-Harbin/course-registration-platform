@@ -50,6 +50,11 @@ public class StuWalletServiceImpl implements StuWalletService {
         stuTransactionService.createTransaction(amount, "充值", new Date(), stuWalletModel.getStuId());
     }
 
+    @Override
+    public void decreaseBalance(StuWalletModel stuWalletModel, BigDecimal amount) throws BusinessException {
+        stuWalletDOMapper.decreaseBalance(stuWalletModel.getStuId(), amount);
+    }
+
 
     private StuWalletModel convertFromDataObject(StuWalletDO walletDO) {
         if (walletDO == null) {

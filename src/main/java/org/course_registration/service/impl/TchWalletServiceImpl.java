@@ -52,6 +52,11 @@ public class TchWalletServiceImpl implements TchWalletService {
         tchTransactionService.createTransaction(amount.negate(), "提现", new Date(), tchWalletModel.getTchId());
     }
 
+    @Override
+    public void increaseBalance(TchWalletModel tchWalletModel, BigDecimal amount) throws BusinessException {
+        tchWalletDOMapper.increaseBalance(tchWalletModel.getTchId(), amount);
+    }
+
     private TchWalletModel convertFromDataObject(TchWalletDO walletDO) {
         if (walletDO == null) {
             return null;

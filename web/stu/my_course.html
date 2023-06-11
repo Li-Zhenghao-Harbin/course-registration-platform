@@ -22,12 +22,9 @@
                     <tr>
                         <th>课程编号</th>
                         <th>课程名</th>
-                        <th>课程描述</th>
                         <th>开课时间</th>
                         <th>课程时长</th>
-                        <th>课程价格</th>
-                        <th>报名人数</th>
-                        <th>课程剩余位置</th>
+                        <th>授课教师</th>
                     </tr>
                 </thead>
                 <tbody id="container" style="text-align: center; background-color: aliceblue; cursor: pointer;"></tbody>
@@ -45,7 +42,7 @@
         function reloadDom() {
             for (var i = 0; i < g_courseList.length; i++) {
                 var courseVO = g_courseList[i];
-                var dom = "<tr data-id='"+courseVO.id+"' id='item_detail"+courseVO.id+"'><td>"+courseVO.id+"</td><td>"+courseVO.title+"</td><td>"+courseVO.description+"</td><td>"+getFormatDate(courseVO.startTime)+"</td><td>"+courseVO.duration+"</td><td>"+courseVO.price+"</td><td>"+courseVO.sales+"</td><td>"+courseVO.stock+"</td></tr>";
+                var dom = "<tr data-id='"+courseVO.courseId+"' id='item_detail"+courseVO.courseId+"'><td>"+courseVO.courseId+"</td><td>"+courseVO.title+"</td><td>"+getFormatDate(courseVO.startTime)+"</td><td>"+courseVO.duration+"</td><td>"+courseVO.tchName+"</td></tr>";
                 $("#container").append($(dom));
                 $("#item_detail"+courseVO.id).on("click",function(e){
                     window.location.href="course.html?id="+$(this).data("id");
@@ -66,6 +63,7 @@
                             window.location.href="../login.html";
                         }
                         $("#me").text("您好，"+data.data.name);
+                        stuId = data.data.id;
                     },
                     error:function(data){
                         alert("获取用户登录信息失败，因为 "+data.responseText);
@@ -73,7 +71,7 @@
                 });
                 $.ajax({
                     type:"GET",
-                    url:"http://localhost:8089/course/list",
+                    url:"http://localhost:8089/order/listStuOrder",
                     xhrFields:{withCredentials:true},
                     success:function(data){
                         if (data.status=="success") {

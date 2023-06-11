@@ -1,5 +1,6 @@
 package org.course_registration.dao;
 
+import org.apache.ibatis.annotations.Param;
 import org.course_registration.dataobject.CourseStockDO;
 
 public interface CourseStockDOMapper {
@@ -52,4 +53,6 @@ public interface CourseStockDOMapper {
      * @mbg.generated Mon Apr 24 20:38:55 BST 2023
      */
     int updateByPrimaryKey(CourseStockDO record);
+
+    int decreaseStock(@Param("courseId")Integer courseId);
 }

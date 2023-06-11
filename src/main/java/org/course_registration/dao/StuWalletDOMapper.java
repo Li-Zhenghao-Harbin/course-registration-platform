@@ -56,4 +56,6 @@ public interface StuWalletDOMapper {
     int updateByPrimaryKey(StuWalletDO record);
 
     void recharge(Integer stuId, BigDecimal amount);
+
+    void decreaseBalance(Integer stuId, BigDecimal amount);
 }

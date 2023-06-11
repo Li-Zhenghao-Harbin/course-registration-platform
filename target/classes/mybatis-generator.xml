@@ -34,11 +34,11 @@
 <!--        <table tableName="tch_wallet" domainObjectName="TchWalletDO" enableCountByExample="false"-->
 <!--               enableUpdateByExample="false"  enableDeleteByExample="false"-->
 <!--               enableSelectByExample="false"  selectByExampleQueryId="false"></table>-->
-        <table tableName="stu_transaction" domainObjectName="StuTransactionDO" enableCountByExample="false"
+        <table tableName="order_info" domainObjectName="OrderDO" enableCountByExample="false"
                enableUpdateByExample="false"  enableDeleteByExample="false"
                enableSelectByExample="false"  selectByExampleQueryId="false"></table>
-        <table tableName="tch_transaction" domainObjectName="TchTransactionDO" enableCountByExample="false"
-               enableUpdateByExample="false"  enableDeleteByExample="false"
-               enableSelectByExample="false"  selectByExampleQueryId="false"></table>
+<!--        <table tableName="tch_transaction" domainObjectName="TchTransactionDO" enableCountByExample="false"-->
+<!--               enableUpdateByExample="false"  enableDeleteByExample="false"-->
+<!--               enableSelectByExample="false"  selectByExampleQueryId="false"></table>-->
     </context>
 </generatorConfiguration>

@@ -55,4 +55,6 @@ public interface TchWalletDOMapper {
     int updateByPrimaryKey(TchWalletDO record);
 
     void withdrawal(Integer tchId, BigDecimal amount);
+
+    void increaseBalance(Integer tchId, BigDecimal amount);
 }

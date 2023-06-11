@@ -1,5 +1,6 @@
 package org.course_registration.dao;
 
+import org.apache.ibatis.annotations.Param;
 import org.course_registration.dataobject.CourseDO;
 import org.course_registration.service.model.CourseModel;
 
@@ -21,6 +22,8 @@ public interface CourseDOMapper {
      * @mbg.generated Mon Apr 24 20:38:55 BST 2023
      */
     List<CourseDO> listCourse();
+
+    List<CourseDO> listTchCourse(Integer tchId);
 
     int insert(CourseDO record);
 
@@ -55,4 +58,6 @@ public interface CourseDOMapper {
      * @mbg.generated Mon Apr 24 20:38:55 BST 2023
      */
     int updateByPrimaryKey(CourseDO record);
+
+    int increaseSales(@Param("id")Integer id);
 }

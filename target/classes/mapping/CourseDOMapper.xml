@@ -30,6 +30,13 @@
     from course_info
     order by start_time desc;
   </select>
+  <select id="listTchCourse" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from course_info
+    where tch_id = #{tchId,jdbcType=INTEGER}
+    order by start_time desc;
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--
       WARNING - @mbg.generated
@@ -167,6 +174,11 @@
       price = #{price,jdbcType=DOUBLE},
       sales = #{sales,jdbcType=INTEGER},
       tch_id = #{tchId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="increaseSales">
+    update course_info
+    set sales = sales + 1
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

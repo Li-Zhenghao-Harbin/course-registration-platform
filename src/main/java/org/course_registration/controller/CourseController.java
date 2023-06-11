@@ -100,4 +100,16 @@ public class CourseController extends BaseController {
         CourseVO courseVO = convertFromModel(courseModel);
         return CommonReturnType.create(courseVO);
     }
+
+    @RequestMapping(value = "/listTchCourse", method = {RequestMethod.GET})
+    @ResponseBody
+    private CommonReturnType listTchCourse() throws BusinessException {
+        Boolean isLogin = (Boolean) httpServletRequest.getSession().getAttribute("IS_LOGIN");
+        if (isLogin == null || !isLogin.booleanValue()) {
+            throw new BusinessException(EmBusinessError.USER_NOT_LOGIN);
+        }
+        TchModel tchModel = (TchModel)httpServletRequest.getSession().getAttribute("LOGIN_INFO");
+        List<CourseModel> courseModelList = courseService.listTchCourse(tchModel.getId());
+        return CommonReturnType.create(courseModelList);
+    }
 }

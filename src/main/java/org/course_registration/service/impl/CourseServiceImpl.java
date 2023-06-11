@@ -90,6 +90,17 @@ public class CourseServiceImpl implements CourseService {
         return courseModelList;
     }
 
+    @Override
+    public List<CourseModel> listTchCourse(Integer tchId) {
+        List<CourseDO> courseDOList = courseDOMapper.listTchCourse(tchId);
+        List<CourseModel> courseModelList = courseDOList.stream().map(courseDO -> {
+            CourseStockDO courseStockDO = courseStockDOMapper.selectByCourseId(courseDO.getId());
+            CourseModel courseModel = convertFromDataObject(courseDO, courseStockDO);
+            return courseModel;
+        }).collect(Collectors.toList());
+        return courseModelList;
+    }
+
     private CourseModel convertFromDataObject(CourseDO courseDO, CourseStockDO courseStockDO) {
         CourseModel courseModel = new CourseModel();
         BeanUtils.copyProperties(courseDO, courseModel);
@@ -109,12 +120,15 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    @Transactional
     public boolean decreaseStock(Integer courseId) throws BusinessException {
-        return false;
+        int affectedRow = courseStockDOMapper.decreaseStock(courseId);
+        return affectedRow > 0;
     }
 
     @Override
+    @Transactional
     public void increaseSales(Integer courseId) throws BusinessException {
-
+        courseDOMapper.increaseSales(courseId);
     }
 }

@@ -1,58 +1,35 @@
 package org.course_registration.service.model;
 
 import java.math.BigDecimal;
-import java.util.Date;
 
 public class OrderModel {
-    private Integer id;
-    private String title;
-    private String description;
-    private Date startTime;
-    private Integer duration;
+    private String id;
+    private Integer stuId;
+    private Integer courseId;
     private BigDecimal price;
-    private Integer sales;
-    private Integer tchId;
 
-    private Integer stock;
-
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public Integer getStuId() {
+        return stuId;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setStuId(Integer stuId) {
+        this.stuId = stuId;
     }
 
-    public String getDescription() {
-        return description;
+    public Integer getCourseId() {
+        return courseId;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Date getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(Date startTime) {
-        this.startTime = startTime;
-    }
-
-    public Integer getDuration() {
-        return duration;
-    }
-
-    public void setDuration(Integer duration) {
-        this.duration = duration;
+    public void setCourseId(Integer courseId) {
+        this.courseId = courseId;
     }
 
     public BigDecimal getPrice() {
@@ -61,29 +38,5 @@ public class OrderModel {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
-    }
-
-    public Integer getSales() {
-        return sales;
-    }
-
-    public void setSales(Integer sales) {
-        this.sales = sales;
-    }
-
-    public Integer getTchId() {
-        return tchId;
-    }
-
-    public void setTchId(Integer tchId) {
-        this.tchId = tchId;
-    }
-
-    public Integer getStock() {
-        return stock;
-    }
-
-    public void setStock(Integer stock) {
-        this.stock = stock;
     }
 }

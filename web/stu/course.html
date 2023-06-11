@@ -49,7 +49,7 @@
         </div>
         <div class="sign_up">
             <p id="course_stock">course_stock</p>
-            <button class="sign_up" onclick="sign_up_onclick()">报名课程</button>
+            <button class="sign_up" id="sign_up">报名课程</button>
         </div>
     </body>
     <script>
@@ -128,7 +128,7 @@
                 $.ajax({
                     type:"POST",
                     contentType:"application/x-www-form-urlencoded",
-                    url:"http://localhost:8089/course/create",
+                    url:"http://localhost:8089/order/createOrder",
                     data:{
                         "courseId":g_courseVO.id
                     },
